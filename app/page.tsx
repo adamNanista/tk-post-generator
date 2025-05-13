@@ -1,103 +1,45 @@
-import Image from "next/image";
+import SpeakersList from "@/components/speakersList";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+async function getEventData() {
+	try {
+		const res = await fetch("https://tk-stage.k8s-onpremise.newsandmedia.sk/event/reality-development-2025?json=1", { cache: "no-store" });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+		if (!res.ok) {
+			return { error: `Error: ${res.status}` };
+		}
+
+		const data = await res.json();
+		return { data };
+	} catch (err) {
+		console.error("Fetch failed:", err);
+		return { error: "Failed to fetch" };
+	}
+}
+
+export default async function Home() {
+	const { data, error } = await getEventData();
+
+	if (error) {
+		return <p>{error}</p>;
+	}
+
+	return (
+		<div>
+			<div className="w-[1080px] h-[1350px] p-[96px] bg-[#b98362]">
+				{/* TK logo start */}
+				<svg className="block w-[384px] mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.759 45.233" preserveAspectRatio="xMidYMid meet">
+					<polygon points="12.062 16.691 20.756 16.691 20.756 29.682 26.697 29.682 26.697 16.691 35.391 16.691 35.391 12.423 12.062 12.423 12.062 16.691" />
+					<path d="M53.763,21.117h-9.277v-4.453h9.484c1.785,0,2.253.078,2.722.493.379.363.496.853.496,1.941,0,1.681-.557,2.019-3.425,2.019M63.16,18.011c0-2.69-.791-4.27-2.488-4.967-1.142-.466-2.459-.623-5.269-.623h-16.83v17.261h5.913v-4.347h9.103c1.609,0,2.078.051,2.546.335.528.338.733.882.733,1.865v2.147h6.028v-2.717c0-1.476-.234-2.251-.82-2.847-.584-.621-1.345-.828-3.394-.93-.147,0-.527-.027-.967-.053,2.634-.336,3.542-.594,4.216-1.215.847-.802,1.23-2.045,1.23-3.908" />
+					<polygon points="72.401 22.721 87.268 22.721 87.268 19.307 72.401 19.307 72.401 16.329 88.175 16.329 88.175 12.422 66.547 12.422 66.547 29.681 88.382 29.681 88.382 25.775 72.401 25.775 72.401 22.721" />
+					<polygon points="112.552 25.541 100.726 12.423 91.271 12.423 91.271 29.682 96.978 29.682 96.832 16.692 108.482 29.682 118.023 29.682 118.023 12.423 112.403 12.423 112.552 25.541" />
+					<path d="M139.911,25.36c-.7.208-.818.208-2.427.208h-9.953v-8.85h10.07c3.425,0,4.126.749,4.126,4.373,0,2.975-.379,3.88-1.816,4.269M147.58,18.245c-.205-2.227-.644-3.287-1.726-4.217-1.375-1.191-3.279-1.604-7.405-1.604h-16.86v17.259h17.651c2.077,0,2.956-.051,4.069-.258,2.136-.363,3.777-1.968,4.097-4.038.175-.983.293-2.794.293-4.32,0-.802-.058-2.021-.118-2.821" />
+					<path d="M36.512,45.083h.812c.301,0,.411-.101.411-.411v-2.467h.261c.572,0,.753.141.983.602l.932,1.907c.15.309.322.37.823.37h.802c.311,0,.351-.191.221-.431l-1.284-2.448c-.261-.49-.532-.831-.913-1.052l2.086-2.788c.151-.211.069-.4-.211-.4h-.873c-.48,0-.591.05-.802.339l-1.776,2.437h-.25v-2.367c0-.311-.11-.41-.411-.41h-.812c-.301,0-.41.099-.41.41v6.297c0,.311.109.411.41.411M47.426,45.233c1.897,0,2.959-1.033,2.959-2.696v-2.027c0-1.665-1.062-2.696-2.959-2.696s-2.967,1.031-2.967,2.696v2.027c0,1.664,1.062,2.696,2.967,2.696M47.426,43.749c-.852,0-1.334-.4-1.334-1.183v-2.096c0-.773.482-1.175,1.334-1.175.844,0,1.335.402,1.335,1.175v2.096c0,.783-.492,1.183-1.335,1.183M54.087,45.083h.741c.311,0,.412-.101.412-.411v-2.397c0-1.063-.221-1.955-.28-2.246h.069c.08.272.351,1.134.842,1.877l1.968,2.988c.099.141.2.191.4.191h.812c.301,0,.4-.101.4-.411v-6.297c0-.311-.099-.41-.4-.41h-.741c-.311,0-.412.099-.412.41v2.397c0,1.073.231,1.905.32,2.216h-.069c-.101-.221-.311-1.012-.833-1.795l-2.008-3.039c-.09-.13-.179-.189-.391-.189h-.831c-.301,0-.411.099-.411.41v6.297c0,.311.11.411.411.411M63.314,45.083h.812c.301,0,.412-.101.412-.411v-2.307h2.307c.311,0,.412-.099.412-.4v-.671c0-.312-.101-.41-.412-.41h-2.307v-1.438h2.818c.301,0,.4-.099.4-.4v-.671c0-.311-.099-.41-.4-.41h-4.041c-.301,0-.411.099-.411.41v6.297c0,.311.11.411.411.411M71.299,45.083h4.131c.312,0,.412-.101.412-.41v-.672c0-.301-.099-.402-.412-.402h-2.908v-1.374h2.307c.311,0,.41-.101.41-.411v-.671c0-.301-.099-.402-.41-.402h-2.307v-1.295h2.818c.301,0,.402-.099.402-.4v-.671c0-.311-.101-.41-.402-.41h-4.041c-.299,0-.41.099-.41.41v6.299c0,.309.11.41.41.41M79.407,45.083h.812c.299,0,.41-.101.41-.41v-2.118h.411c.581,0,.772.131.993.592l.741,1.545c.15.311.333.391.844.391h.802c.301,0,.341-.191.211-.431l-1.034-1.976-.199-.351c.73-.341,1.151-1.054,1.151-2.056,0-1.454-.913-2.306-2.355-2.306h-2.788c-.301,0-.411.099-.411.41v6.299c0,.309.11.41.411.41M80.629,41.093v-1.648h1.395c.543,0,.834.303.834.825s-.301.823-.834.823h-1.395ZM88.255,45.083h4.129c.312,0,.413-.101.413-.41v-.672c0-.301-.101-.402-.413-.402h-2.908v-1.374h2.307c.311,0,.411-.101.411-.411v-.671c0-.301-.101-.402-.411-.402h-2.307v-1.295h2.818c.301,0,.402-.099.402-.4v-.671c0-.311-.101-.41-.402-.41h-4.04c-.301,0-.413.099-.413.41v6.299c0,.309.112.41.413.41M96.36,45.083h.743c.311,0,.41-.101.41-.411v-2.397c0-1.063-.221-1.955-.28-2.246h.07c.08.272.351,1.134.842,1.877l1.966,2.988c.101.141.2.191.402.191h.812c.299,0,.4-.101.4-.411v-6.297c0-.311-.101-.41-.4-.41h-.743c-.309,0-.41.099-.41.41v2.397c0,1.073.231,1.905.32,2.216h-.069c-.101-.221-.312-1.012-.833-1.795l-2.008-3.039c-.09-.13-.181-.189-.391-.189h-.833c-.301,0-.41.099-.41.41v6.297c0,.311.109.411.41.411M107.99,45.233c1.475,0,2.407-.6,2.808-1.684.099-.28.029-.421-.261-.52l-.772-.272c-.282-.11-.402-.04-.522.251-.181.492-.592.741-1.254.741-.882,0-1.334-.41-1.334-1.202v-2.048c0-.793.452-1.204,1.334-1.204.661,0,1.062.251,1.254.745.109.29.231.341.522.25l.772-.271c.29-.101.36-.24.261-.522-.402-1.082-1.334-1.683-2.808-1.683-1.905,0-2.969,1.031-2.969,2.696v2.027c0,1.664,1.063,2.696,2.969,2.696M114.361,45.083h.831c.301,0,.402-.101.402-.402v-6.317c0-.301-.101-.4-.402-.4h-.831c-.301,0-.402.099-.402.4v6.317c0,.301.101.402.402.402M119.436,45.083h4.133c.309,0,.41-.101.41-.41v-.672c0-.301-.101-.402-.41-.402h-2.909v-1.374h2.307c.311,0,.41-.101.41-.411v-.671c0-.301-.099-.402-.41-.402h-2.307v-1.295h2.818c.301,0,.4-.099.4-.4v-.671c0-.311-.099-.41-.4-.41h-4.041c-.299,0-.41.099-.41.41v6.299c0,.309.11.41.41.41" />
+					<polygon points="159.759 42.111 134.204 42.111 134.204 38.015 155.663 38.015 155.663 4.096 4.096 4.096 4.096 38.015 25.555 38.015 25.555 42.111 0 42.111 0 0 159.759 0 159.759 42.111" />
+				</svg>
+				{/* TK logo end */}
+				<SpeakersList speakers={data.event.speakers} />
+			</div>
+			<pre>{JSON.stringify(data, null, 2)}</pre>
+		</div>
+	);
 }
