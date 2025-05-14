@@ -1,0 +1,15 @@
+"use client";
+
+import { useUIStore } from "@/stores/useUIStore";
+
+export default function EventLogoWidthControl() {
+	const eventLogoWidth = useUIStore((state) => state.eventLogoWidth);
+	const setEventLogoWidth = useUIStore((state) => state.setEventLogoWidth);
+
+	return (
+		<fieldset>
+			<legend>Šírka loga eventu</legend>
+			<input type="range" name="eventLogoWidth" min="10" max="100" step="10" value={eventLogoWidth} onChange={(e) => setEventLogoWidth(Number(e.target.value))} />
+		</fieldset>
+	);
+}

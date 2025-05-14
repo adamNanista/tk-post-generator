@@ -1,7 +1,8 @@
-import LogoFillControl from "@/components/logoFillControl";
-import Logo from "@/components/logo";
+import CompanyLogoFillControl from "@/components/companyLogoFillControl";
+import CompanyLogo from "@/components/companyLogo";
 
-import Image from "next/image";
+import EventLogoWidthControl from "@/components/eventLogoWidthControl";
+import EventLogo from "@/components/eventLogo";
 
 async function getEventData() {
 	try {
@@ -29,13 +30,12 @@ export default async function Home() {
 
 	return (
 		<div>
-			<LogoFillControl />
+			<CompanyLogoFillControl />
+			<EventLogoWidthControl />
 			<div className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[#b98362]">
 				<div className="grow shrink-0 flex flex-col p-[96px]">
-					<Logo />
-					{/* Event logo start */}
-					<Image src="/reality-development-2025-logo.svg" alt={data.event.name} width={792} height={228} className="mt-[88px]" />
-					{/* Event logo end */}
+					<CompanyLogo />
+					<EventLogo />
 
 					{/* Subtitle start */}
 					<h1 className="mt-[64px] text-[#232323] text-[80px] leading-[80px]">{data.event.additionalName}</h1>

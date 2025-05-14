@@ -3,11 +3,15 @@
 import { create } from "zustand";
 
 type UIState = {
-	logoFill: string;
-	setLogoFill: (fill: string) => void;
+	companyLogoFill: string;
+	eventLogoWidth: number;
+	setCompanyLogoFill: (fill: string) => void;
+	setEventLogoWidth: (width: number) => void;
 };
 
 export const useUIStore = create<UIState>((set) => ({
-	logoFill: "dark",
-	setLogoFill: (fill) => set({ logoFill: fill }),
+	companyLogoFill: "dark",
+	eventLogoWidth: 90,
+	setCompanyLogoFill: (fill) => set({ companyLogoFill: fill }),
+	setEventLogoWidth: (width) => set({ eventLogoWidth: width }),
 }));
