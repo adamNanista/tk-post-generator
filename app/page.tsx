@@ -4,6 +4,8 @@ import CompanyLogo from "@/components/companyLogo";
 import EventLogoWidthControl from "@/components/eventLogoWidthControl";
 import EventLogo from "@/components/eventLogo";
 
+import Subtitle from "@/components/subtitle";
+
 async function getEventData() {
 	try {
 		const res = await fetch("https://tk-stage.k8s-onpremise.newsandmedia.sk/event/reality-development-2025?json=1", { cache: "no-store" });
@@ -36,10 +38,7 @@ export default async function Home() {
 				<div className="grow shrink-0 flex flex-col p-[96px]">
 					<CompanyLogo />
 					<EventLogo />
-
-					{/* Subtitle start */}
-					<h1 className="mt-[64px] text-[#232323] text-[80px] leading-[80px]">{data.event.additionalName}</h1>
-					{/* Subtitle end */}
+					<Subtitle text={data.event.additionalName} />
 
 					{/* Date and place start */}
 					<ul className="mt-auto space-y-[0.5em] text-[#ffffff] text-[60px] font-bold leading-[60px] uppercase">
