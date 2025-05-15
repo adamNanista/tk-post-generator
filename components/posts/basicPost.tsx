@@ -2,6 +2,9 @@
 
 import { useRef } from "react";
 import { toPng } from "html-to-image";
+import { useUIStore } from "@/stores/useUIStore";
+
+import EventColorControl from "../eventColorControl";
 
 import CompanyLogoFillControl from "@/components/companyLogoFillControl";
 import CompanyLogo from "@/components/companyLogo";
@@ -31,9 +34,12 @@ export default function BasicPost({ data }: { data: any }) {
 		}
 	};
 
+	const eventColor = useUIStore((state) => state.eventColor);
+
 	return (
 		<div className="flex items-start justify-between">
 			<div className="w-3/12 space-y-6">
+				<EventColorControl />
 				<CompanyLogoFillControl />
 				<EventLogoWidthControl />
 				<SubtitleColorControl />
@@ -41,7 +47,7 @@ export default function BasicPost({ data }: { data: any }) {
 				<ScheduleInfoWidthControl />
 			</div>
 			<div className="origin-top scale-50">
-				<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[#b98362] bg-[url(/reality-development-2025-basic-bg.png)]">
+				<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[url(/reality-development-2025-basic-bg.png)]" style={{ backgroundColor: eventColor }}>
 					<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px] pb-[48px]">
 						<CompanyLogo />
 						<EventLogo />
@@ -50,7 +56,7 @@ export default function BasicPost({ data }: { data: any }) {
 					</div>
 					{/* CTA start */}
 					<div className="shrink-0 p-[24px] bg-[#232323]">
-						<p className="text-[#b98362] text-[40px] leading-[48px] text-center">
+						<p className="text-[40px] leading-[48px] text-center" style={{ color: eventColor }}>
 							Zaregistrujte sa ešte dnes, <span className="font-black">počet miest je limitovaný!</span>
 						</p>
 					</div>
