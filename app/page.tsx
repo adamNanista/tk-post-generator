@@ -1,11 +1,4 @@
-import CompanyLogoFillControl from "@/components/companyLogoFillControl";
-import CompanyLogo from "@/components/companyLogo";
-
-import EventLogoWidthControl from "@/components/eventLogoWidthControl";
-import EventLogo from "@/components/eventLogo";
-
-import SubtitleColorControl from "@/components/subtitleColorControl";
-import Subtitle from "@/components/subtitle";
+import BasicPost from "@/components/posts/basicPost";
 
 async function getEventData() {
 	try {
@@ -31,38 +24,5 @@ export default async function Home() {
 		return <p>{error}</p>;
 	}
 
-	return (
-		<div>
-			<CompanyLogoFillControl />
-			<EventLogoWidthControl />
-			<SubtitleColorControl />
-			<div className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[#b98362] bg-[url(/reality-development-2025-bg.png)]">
-				<div className="grow shrink-0 flex flex-col p-[96px]">
-					<CompanyLogo />
-					<EventLogo />
-					<Subtitle text={data.event.additionalName} />
-
-					{/* Date and place start */}
-					<ul className="mt-auto space-y-[0.5em] text-[#ffffff] text-[60px] font-bold leading-[60px] uppercase">
-						<li className="relative pl-[0.375em] before:block before:w-[0.125em] before:absolute before:top-[0.0625em] before:bottom-[0.1875em] before:left-0 before:bg-[#b98362]">
-							{data.event.date.from.day}. {data.event.date.from.month_human}
-						</li>
-						<li className="relative pl-[0.375em] before:block before:w-[0.125em] before:absolute before:top-[0.0625em] before:bottom-[0.1875em] before:left-0 before:bg-[#b98362]">
-							{data.event.address.info}
-							<br aria-hidden="true" />
-							<span className="font-normal">{data.event.address.city}</span>
-						</li>
-					</ul>
-					{/* Date and place end */}
-				</div>
-				{/* CTA start */}
-				<div className="shrink-0 p-[24px] bg-[#232323]">
-					<p className="text-[#b98362] text-[40px] leading-[48px] text-center">
-						Zaregistrujte sa ešte dnes, <span className="font-black">počet miest je limitovaný!</span>
-					</p>
-				</div>
-				{/* CTA end */}
-			</div>
-		</div>
-	);
+	return <BasicPost data={data} />;
 }

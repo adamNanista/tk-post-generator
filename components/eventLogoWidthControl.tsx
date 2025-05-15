@@ -10,6 +10,7 @@ export default function EventLogoWidthControl() {
 		<fieldset>
 			<legend>Šírka loga eventu</legend>
 			<input type="range" name="eventLogoWidth" min="10" max="100" step="10" value={eventLogoWidth} onChange={(e) => setEventLogoWidth(Number(e.target.value))} />
+			<p>{eventLogoWidth} %</p>
 		</fieldset>
 	);
 }
