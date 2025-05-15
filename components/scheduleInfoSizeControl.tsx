@@ -8,7 +8,7 @@ export default function ScheduleInfoSizeControl() {
 
 	return (
 		<fieldset>
-			<legend>Veľkosť dátumu</legend>
+			<legend>Veľkosť písma dátumu</legend>
 			<input type="range" name="scheduleInfoSize" min="10" max="100" step="10" value={scheduleInfoSize} onChange={(e) => setScheduleInfoSize(Number(e.target.value))} />
 			<p>{scheduleInfoSize} px</p>
 		</fieldset>
