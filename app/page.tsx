@@ -4,6 +4,7 @@ import CompanyLogo from "@/components/companyLogo";
 import EventLogoWidthControl from "@/components/eventLogoWidthControl";
 import EventLogo from "@/components/eventLogo";
 
+import SubtitleColorControl from "@/components/subtitleColorControl";
 import Subtitle from "@/components/subtitle";
 
 async function getEventData() {
@@ -34,7 +35,8 @@ export default async function Home() {
 		<div>
 			<CompanyLogoFillControl />
 			<EventLogoWidthControl />
-			<div className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[#b98362]">
+			<SubtitleColorControl />
+			<div className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[#b98362] bg-[url(/reality-development-2025-bg.png)]">
 				<div className="grow shrink-0 flex flex-col p-[96px]">
 					<CompanyLogo />
 					<EventLogo />
@@ -42,10 +44,10 @@ export default async function Home() {
 
 					{/* Date and place start */}
 					<ul className="mt-auto space-y-[0.5em] text-[#ffffff] text-[60px] font-bold leading-[60px] uppercase">
-						<li>
+						<li className="relative pl-[0.375em] before:block before:w-[0.125em] before:absolute before:top-[0.0625em] before:bottom-[0.1875em] before:left-0 before:bg-[#b98362]">
 							{data.event.date.from.day}. {data.event.date.from.month_human}
 						</li>
-						<li>
+						<li className="relative pl-[0.375em] before:block before:w-[0.125em] before:absolute before:top-[0.0625em] before:bottom-[0.1875em] before:left-0 before:bg-[#b98362]">
 							{data.event.address.info}
 							<br aria-hidden="true" />
 							<span className="font-normal">{data.event.address.city}</span>
