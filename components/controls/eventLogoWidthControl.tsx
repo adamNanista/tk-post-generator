@@ -7,7 +7,7 @@ export default function EventLogoWidthControl() {
 	const setEventLogoWidth = useUIStore((state) => state.setEventLogoWidth);
 
 	return (
-		<fieldset>
+		<fieldset className="space-y-2">
 			<legend>Šírka loga eventu</legend>
 			<input className="w-full" type="range" name="eventLogoWidth" min="10" max="100" step="1" value={eventLogoWidth} onChange={(e) => setEventLogoWidth(Number(e.target.value))} />
 			<p>{eventLogoWidth} %</p>

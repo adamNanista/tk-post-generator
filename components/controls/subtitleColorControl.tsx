@@ -7,16 +7,16 @@ export default function SubtitleColorControl() {
 	const setSubtitleColor = useUIStore((state) => state.setSubtitleColor);
 
 	return (
-		<div>
-			<fieldset>
-				<legend>Farba nadpisu</legend>
+		<fieldset className="space-y-2">
+			<legend>Farba nadpisu</legend>
+			<div className="space-x-6">
 				<label>
 					<input type="radio" name="subtitleColor" value="dark" checked={subtitleColor === "dark"} onChange={() => setSubtitleColor("dark")} /> Tmavá
 				</label>
 				<label>
 					<input type="radio" name="subtitleColor" value="light" checked={subtitleColor === "light"} onChange={() => setSubtitleColor("light")} /> Svetlá
 				</label>
-			</fieldset>
-		</div>
+			</div>
+		</fieldset>
 	);
 }

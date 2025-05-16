@@ -7,16 +7,16 @@ export default function CompanyLogoFillControl() {
 	const setCompanyLogoFill = useUIStore((state) => state.setCompanyLogoFill);
 
 	return (
-		<div>
-			<fieldset>
-				<legend>Farba loga TREND konferencie</legend>
+		<fieldset className="space-y-2">
+			<legend>Farba loga TREND konferencie</legend>
+			<div className="space-x-6">
 				<label>
 					<input type="radio" name="companyLogoFill" value="dark" checked={companyLogoFill === "dark"} onChange={() => setCompanyLogoFill("dark")} /> Tmavá
 				</label>
 				<label>
 					<input type="radio" name="companyLogoFill" value="light" checked={companyLogoFill === "light"} onChange={() => setCompanyLogoFill("light")} /> Svetlá
 				</label>
-			</fieldset>
-		</div>
+			</div>
+		</fieldset>
 	);
 }
