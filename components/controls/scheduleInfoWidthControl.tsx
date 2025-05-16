@@ -9,7 +9,7 @@ export default function ScheduleInfoWidthControl() {
 	return (
 		<fieldset className="space-y-2">
 			<legend>Šírka dátumu</legend>
-			<input className="w-full" type="range" name="scheduleInfoSize" min="10" max="100" step="1" value={scheduleInfoWidth} onChange={(e) => setScheduleInfoWidth(Number(e.target.value))} />
+			<input className="w-full" type="range" name="scheduleInfoWidth" min="10" max="100" step="1" value={scheduleInfoWidth} onChange={(e) => setScheduleInfoWidth(Number(e.target.value))} />
 			<p>{scheduleInfoWidth} %</p>
 		</fieldset>
 	);

@@ -10,7 +10,10 @@ export default function EventColorControl() {
 	return (
 		<fieldset className="space-y-2">
 			<legend>Farba eventu</legend>
-			<HexColorInput className="w-full px-3 py-1 bg-white border border-neutral-300 rounded" color={eventColor} onChange={setEventColor} prefixed />
+			<div className="flex items-center space-x-4">
+				<HexColorInput className="w-full px-3 py-1 bg-white border border-neutral-300 rounded" color={eventColor} onChange={setEventColor} prefixed />
+				<div className="shrink-0 w-8 h-8 border border-neutral-300 rounded" style={{ backgroundColor: eventColor }}></div>
+			</div>
 		</fieldset>
 	);
 }

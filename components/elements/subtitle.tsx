@@ -8,7 +8,10 @@ type SubtitleProps = {
 };
 
 export default function Subtitle({ text }: SubtitleProps) {
+	const subtitleWidth = useUIStore((state) => state.subtitleWidth);
 	const subtitleColor = useUIStore((state) => state.subtitleColor);
+	const subtitleSizes = useUIStore((state) => state.subtitleSizes);
+	const subtitleSizeIndex = useUIStore((state) => state.subtitleSizeIndex);
 
 	const boldWords = ["budúcnosť", "trhu"];
 
@@ -27,7 +30,7 @@ export default function Subtitle({ text }: SubtitleProps) {
 	};
 
 	return (
-		<h1 className="mt-[64px] text-[80px] leading-[80px]" style={{ color: colors[subtitleColor] }}>
+		<h1 className="mt-[64px] leading-none" style={{ width: subtitleWidth + "%", color: colors[subtitleColor], fontSize: subtitleSizes[subtitleSizeIndex] }}>
 			{boldify(text)}
 		</h1>
 	);

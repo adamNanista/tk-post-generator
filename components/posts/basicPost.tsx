@@ -12,12 +12,17 @@ import CompanyLogo from "@/components/elements/companyLogo";
 import EventLogoWidthControl from "@/components/controls/eventLogoWidthControl";
 import EventLogo from "@/components/elements/eventLogo";
 
+import SubtitleWidthControl from "@/components/controls/subtitleWidthControl";
 import SubtitleColorControl from "@/components/controls/subtitleColorControl";
+import SubtitleSizeControl from "@/components/controls/subtitleSizeControl";
 import Subtitle from "@/components/elements/subtitle";
 
-import ScheduleInfo from "@/components/elements/scheduleInfo";
-import ScheduleInfoSizeControl from "@/components/controls/scheduleInfoSizeControl";
 import ScheduleInfoWidthControl from "@/components/controls/scheduleInfoWidthControl";
+import ScheduleInfoColorControl from "@/components/controls/scheduleInfoColorControl";
+import ScheduleInfoSizeControl from "@/components/controls/scheduleInfoSizeControl";
+import ScheduleInfo from "@/components/elements/scheduleInfo";
+
+import DownloadIcon from "@mui/icons-material/Download";
 
 export default function BasicPost({ data }: { data: any }) {
 	const postRef = useRef<HTMLDivElement>(null);
@@ -38,35 +43,43 @@ export default function BasicPost({ data }: { data: any }) {
 
 	return (
 		<div className="flex min-h-screen">
-			<div className="flex flex-col w-2/12 p-6 space-y-6 bg-neutral-100">
+			<div className="flex flex-col w-1/5 p-8 space-y-8 bg-neutral-50 border-r border-r-neutral-200">
 				<h1 className="text-2xl font-black">Základný Post 1080x1350</h1>
 				<EventColorControl />
 				<CompanyLogoFillControl />
 				<EventLogoWidthControl />
+				<SubtitleWidthControl />
 				<SubtitleColorControl />
-				<ScheduleInfoSizeControl />
+				<SubtitleSizeControl />
 				<ScheduleInfoWidthControl />
-				<button className="cursor-pointer mt-auto px-6 py-3 text-white font-black bg-blue-500 rounded" onClick={handleDownload}>
-					Download
-				</button>
+				<ScheduleInfoColorControl />
+				<ScheduleInfoSizeControl />
 			</div>
-			<div className="w-[540px] h-[675px] m-auto overflow-hidden">
-				<div className="origin-top-left scale-50">
-					<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[url(/reality-development-2025-basic-bg.png)]" style={{ backgroundColor: eventColor }}>
-						<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px] pb-[48px]">
-							<CompanyLogo />
-							<EventLogo />
-							<Subtitle text={data.event.additionalName} />
-							<ScheduleInfo day={data.event.date.from.day} month={data.event.date.from.month_human} venue={data.event.address.info} city={data.event.address.city} />
+			<div className="m-auto space-y-6">
+				<div className="w-[540px] h-[675px] overflow-hidden">
+					<div className="origin-top-left scale-50">
+						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[url(/reality-development-2025-basic-bg.png)]" style={{ backgroundColor: eventColor }}>
+							<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px] pb-[48px]">
+								<CompanyLogo />
+								<EventLogo />
+								<Subtitle text={data.event.additionalName} />
+								<ScheduleInfo day={data.event.date.from.day} month={data.event.date.from.month_human} venue={data.event.address.info} city={data.event.address.city} />
+							</div>
+							{/* CTA start */}
+							<div className="shrink-0 p-[24px] bg-[#232323]">
+								<p className="text-[40px] leading-[48px] text-center" style={{ color: eventColor }}>
+									Zaregistrujte sa ešte dnes, <span className="font-black">počet miest je limitovaný!</span>
+								</p>
+							</div>
+							{/* CTA end */}
 						</div>
-						{/* CTA start */}
-						<div className="shrink-0 p-[24px] bg-[#232323]">
-							<p className="text-[40px] leading-[48px] text-center" style={{ color: eventColor }}>
-								Zaregistrujte sa ešte dnes, <span className="font-black">počet miest je limitovaný!</span>
-							</p>
-						</div>
-						{/* CTA end */}
 					</div>
+				</div>
+				<div className="flex justify-end">
+					<button className="inline-flex items-center space-x-1.5 cursor-pointer px-4 py-2 text-neutral-600 bg-neutral-50 border border-neutral-200 rounded-full" onClick={handleDownload}>
+						<DownloadIcon fontSize="small" />
+						<span>Stiahnuť</span>
+					</button>
 				</div>
 			</div>
 		</div>
