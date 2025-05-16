@@ -7,5 +7,5 @@ export default function EventColorControl() {
 	const eventColor = useUIStore((state) => state.eventColor);
 	const setEventColor = useUIStore((state) => state.setEventColor);
 
-	return <HexColorInput color={eventColor} onChange={() => setEventColor(eventColor)} />;
+	return <HexColorInput color={eventColor} onChange={setEventColor} />;
 }
