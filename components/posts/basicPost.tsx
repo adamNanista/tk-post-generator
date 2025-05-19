@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { toPng } from "html-to-image";
 import { useUIStore } from "@/stores/useUIStore";
 
+import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
+
 import EventColorControl from "@/components/controls/eventColorControl";
 
 import CompanyLogoFillControl from "@/components/controls/companyLogoFillControl";
@@ -23,6 +25,7 @@ import ScheduleInfoSizeControl from "@/components/controls/scheduleInfoSizeContr
 import ScheduleInfo from "@/components/elements/scheduleInfo";
 
 import DownloadIcon from "@mui/icons-material/Download";
+import CallToAction from "@/components/elements/callToAction";
 
 export default function BasicPost({ data }: { data: any }) {
 	const postRef = useRef<HTMLDivElement>(null);
@@ -43,9 +46,22 @@ export default function BasicPost({ data }: { data: any }) {
 
 	return (
 		<div className="flex min-h-screen">
-			<div className="flex flex-col w-1/5 p-8 space-y-8 bg-neutral-50 border-r border-r-neutral-200">
-				<h1 className="text-2xl font-black">Základný Post 1080x1350</h1>
-				<EventColorControl />
+			<div className="flex flex-col w-1/5 min-w-sm max-h-screen overflow-auto p-8 space-y-8 bg-neutral-50 border-r border-r-neutral-200">
+				<div className="space-y-2">
+					<h1 className="text-2xl font-black text-pretty">{data.event.name}</h1>
+					<p>Základný post 1080x1350</p>
+				</div>
+				<Accordion>
+					<AccordionSummary>
+						<Typography>Všeobecné</Typography>
+					</AccordionSummary>
+					<AccordionDetails>
+						<Typography>
+							<EventColorControl />
+						</Typography>
+					</AccordionDetails>
+				</Accordion>
+
 				<CompanyLogoFillControl />
 				<EventLogoWidthControl />
 				<SubtitleWidthControl />
@@ -65,13 +81,7 @@ export default function BasicPost({ data }: { data: any }) {
 								<Subtitle text={data.event.additionalName} />
 								<ScheduleInfo day={data.event.date.from.day} month={data.event.date.from.month_human} venue={data.event.address.info} city={data.event.address.city} />
 							</div>
-							{/* CTA start */}
-							<div className="shrink-0 p-[24px] bg-[#232323]">
-								<p className="text-[40px] leading-[48px] text-center" style={{ color: eventColor }}>
-									Zaregistrujte sa ešte dnes, <span className="font-black">počet miest je limitovaný!</span>
-								</p>
-							</div>
-							{/* CTA end */}
+							<CallToAction />
 						</div>
 					</div>
 				</div>
