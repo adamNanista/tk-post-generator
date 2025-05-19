@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { toPng } from "html-to-image";
 import { useUIStore } from "@/stores/useUIStore";
 
-import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 
 import EventColorControl from "@/components/controls/eventColorControl";
 
@@ -51,25 +51,42 @@ export default function BasicPost({ data }: { data: any }) {
 					<h1 className="text-2xl font-black text-pretty">{data.event.name}</h1>
 					<p>Základný post 1080x1350</p>
 				</div>
-				<Accordion>
-					<AccordionSummary>
-						<Typography>Všeobecné</Typography>
-					</AccordionSummary>
-					<AccordionDetails>
-						<Typography>
+				<div>
+					<Accordion disableGutters>
+						<AccordionSummary>Všeobecné</AccordionSummary>
+						<AccordionDetails>
 							<EventColorControl />
-						</Typography>
-					</AccordionDetails>
-				</Accordion>
-
-				<CompanyLogoFillControl />
-				<EventLogoWidthControl />
-				<SubtitleWidthControl />
-				<SubtitleColorControl />
-				<SubtitleSizeControl />
-				<ScheduleInfoWidthControl />
-				<ScheduleInfoColorControl />
-				<ScheduleInfoSizeControl />
+						</AccordionDetails>
+					</Accordion>
+					<Accordion disableGutters>
+						<AccordionSummary>TK logo</AccordionSummary>
+						<AccordionDetails>
+							<CompanyLogoFillControl />
+						</AccordionDetails>
+					</Accordion>
+					<Accordion disableGutters>
+						<AccordionSummary>Event logo</AccordionSummary>
+						<AccordionDetails>
+							<EventLogoWidthControl />
+						</AccordionDetails>
+					</Accordion>
+					<Accordion disableGutters>
+						<AccordionSummary>Nadpis</AccordionSummary>
+						<AccordionDetails>
+							<SubtitleWidthControl />
+							<SubtitleColorControl />
+							<SubtitleSizeControl />
+						</AccordionDetails>
+					</Accordion>
+					<Accordion disableGutters>
+						<AccordionSummary>Dátum</AccordionSummary>
+						<AccordionDetails>
+							<ScheduleInfoWidthControl />
+							<ScheduleInfoColorControl />
+							<ScheduleInfoSizeControl />
+						</AccordionDetails>
+					</Accordion>
+				</div>
 			</div>
 			<div className="m-auto space-y-6">
 				<div className="w-[540px] h-[675px] overflow-hidden">
