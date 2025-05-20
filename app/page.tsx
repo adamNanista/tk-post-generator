@@ -1,4 +1,4 @@
-import BasicPost from "@/components/posts/basicPost";
+import ThemePost from "@/components/posts/themePost";
 
 async function getEventData() {
 	try {
@@ -24,5 +24,5 @@ export default async function Home() {
 		return <p>{error}</p>;
 	}
 
-	return <BasicPost data={data} />;
+	return <ThemePost data={data} />;
 }

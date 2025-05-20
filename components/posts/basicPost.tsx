@@ -9,6 +9,7 @@ import WidthControl from "@/components/controls/widthControl";
 import SpaceControl from "@/components/controls/spaceControl";
 import ColorControl from "@/components/controls/colorControl";
 import SizeControl from "@/components/controls/sizeControl";
+import AlignmentControl from "@/components/controls/alignmentControl";
 
 import CompanyLogo from "@/components/elements/companyLogo";
 import EventLogo from "@/components/elements/eventLogo";
@@ -22,7 +23,6 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import DownloadIcon from "@mui/icons-material/Download";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import AlignmentControl from "../controls/alignmentControl";
 
 export default function BasicPost({ data }: { data: any }) {
 	const postRef = useRef<HTMLDivElement>(null);
