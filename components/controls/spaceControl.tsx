@@ -2,7 +2,7 @@
 
 import { useUIStore } from "@/stores/useUIStore";
 
-type SizeControlProps = {
+type SpaceControlProps = {
 	label: string;
 	name: string;
 	spacesGetter: (state: any) => number[];
@@ -10,7 +10,7 @@ type SizeControlProps = {
 	indexSetter: (state: any) => (index: number) => void;
 };
 
-export default function SpaceControl({ label, name, spacesGetter, indexGetter, indexSetter }: SizeControlProps) {
+export default function SpaceControl({ label, name, spacesGetter, indexGetter, indexSetter }: SpaceControlProps) {
 	const spaces = useUIStore(spacesGetter);
 	const index = useUIStore(indexGetter);
 	const setIndex = useUIStore(indexSetter);

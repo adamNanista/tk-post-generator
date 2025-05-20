@@ -4,6 +4,7 @@ import { useUIStore } from "@/stores/useUIStore";
 
 export default function EventLogo() {
 	const spaces = useUIStore((state) => state.spaces);
+
 	const eventLogoSpaceIndex = useUIStore((state) => state.eventLogoSpaceIndex);
 	const eventLogoWidth = useUIStore((state) => state.eventLogoWidth);
 

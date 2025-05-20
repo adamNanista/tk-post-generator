@@ -1,10 +1,11 @@
 "use client";
 
 import { useUIStore } from "@/stores/useUIStore";
-import { colors } from "@/utils/colors";
 
 export default function CompanyLogo() {
+	const colors = useUIStore((state) => state.colors);
 	const spaces = useUIStore((state) => state.spaces);
+
 	const companyLogoSpaceIndex = useUIStore((state) => state.companyLogoSpaceIndex);
 	const companyLogoFill = useUIStore((state) => state.companyLogoFill);
 

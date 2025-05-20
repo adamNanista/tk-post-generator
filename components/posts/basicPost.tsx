@@ -4,12 +4,11 @@ import { useRef } from "react";
 import { toPng } from "html-to-image";
 import { useUIStore } from "@/stores/useUIStore";
 
+import ColorPicker from "@/components/controls/colorPicker";
 import WidthControl from "@/components/controls/widthControl";
 import SpaceControl from "@/components/controls/spaceControl";
 import ColorControl from "@/components/controls/colorControl";
 import SizeControl from "@/components/controls/sizeControl";
-
-import EventColorControl from "@/components/controls/eventColorControl";
 
 import CompanyLogo from "@/components/elements/companyLogo";
 import EventLogo from "@/components/elements/eventLogo";
@@ -23,6 +22,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import DownloadIcon from "@mui/icons-material/Download";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AlignmentControl from "../controls/alignmentControl";
 
 export default function BasicPost({ data }: { data: any }) {
 	const postRef = useRef<HTMLDivElement>(null);
@@ -39,7 +39,7 @@ export default function BasicPost({ data }: { data: any }) {
 		}
 	};
 
-	const eventColor = useUIStore((state) => state.eventColor);
+	const primaryColor = useUIStore((state) => state.primaryColor);
 
 	return (
 		<div className="flex min-h-screen">
@@ -53,7 +53,8 @@ export default function BasicPost({ data }: { data: any }) {
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Všeobecné</AccordionSummary>
 						<AccordionDetails>
 							<div className="space-y-6">
-								<EventColorControl />
+								<ColorPicker label="Primary farba" name="primaryColor" valueGetter={(state) => state.primaryColor} valueSetter={(state) => state.setPrimaryColor} />
+								<ColorPicker label="Accent farba" name="accentColor" valueGetter={(state) => state.accentColor} valueSetter={(state) => state.setAccentColor} />
 							</div>
 						</AccordionDetails>
 					</Accordion>
@@ -90,10 +91,13 @@ export default function BasicPost({ data }: { data: any }) {
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Dátum/miesto</AccordionSummary>
 						<AccordionDetails>
 							<div className="space-y-6">
+								<AlignmentControl label="Zarovnanie dátumu" name="scheduleInfoAlignment" valueGetter={(state) => state.scheduleInfoAlignment} valueSetter={(state) => state.setScheduleInfoAlignment} />
 								<WidthControl label="Šírka dátumu" name="scheduleInfoWidth" valueGetter={(state) => state.scheduleInfoWidth} valueSetter={(state) => state.setScheduleInfoWidth} />
 								<ColorControl label="Farba dátumu" name="scheduleInfoColor" valueGetter={(state) => state.scheduleInfoColor} valueSetter={(state) => state.setScheduleInfoColor} />
 								<SizeControl label="Veľkosť písma dátumu" name="scheduleInfoSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.scheduleInfoSizeIndex} indexSetter={(state) => state.setScheduleInfoSizeIndex} />
 								<SpaceControl label="Odsadenie" name="scheduleInfoSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.scheduleInfoSpaceIndex} indexSetter={(state) => state.setScheduleInfoSpaceIndex} />
+								<SpaceControl label="Odsadenie dátumu" name="scheduleInfoDateSpace" spacesGetter={(state) => state.relativeSpaces} indexGetter={(state) => state.scheduleInfoDateSpaceIndex} indexSetter={(state) => state.setScheduleInfoDateSpaceIndex} />
+								<SpaceControl label="Odsadenie miesta" name="scheduleInfoPlaceSpace" spacesGetter={(state) => state.relativeSpaces} indexGetter={(state) => state.scheduleInfoPlaceSpaceIndex} indexSetter={(state) => state.setScheduleInfoPlaceSpaceIndex} />
 							</div>
 						</AccordionDetails>
 					</Accordion>
@@ -102,7 +106,7 @@ export default function BasicPost({ data }: { data: any }) {
 			<div className="m-auto space-y-6">
 				<div className="w-[540px] h-[675px] overflow-hidden">
 					<div className="origin-top-left scale-50">
-						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[url(/reality-development-2025-basic-bg.png)]" style={{ backgroundColor: eventColor }}>
+						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[url(/reality-development-2025-basic-bg.png)]" style={{ backgroundColor: primaryColor }}>
 							<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
 								<CompanyLogo />
 								<EventLogo />

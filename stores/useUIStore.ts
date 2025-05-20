@@ -1,14 +1,21 @@
 "use client";
 
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { colors } from "@/utils/colors";
 import { fontSizes } from "@/utils/fontSizes";
-import { spaces } from "@/utils/spaces";
+import { spaces, relativeSpaces } from "@/utils/spaces";
+import { alignments } from "@/utils/alignments";
 
 type UIState = {
+	colors: Record<string, string>;
 	sizes: number[];
 	spaces: number[];
+	relativeSpaces: number[];
+	alignments: Record<string, string>;
 
-	eventColor: string;
+	primaryColor: string;
+	accentColor: string;
 	companyLogoFill: string;
 	companyLogoSpaceIndex: number;
 	eventLogoWidth: number;
@@ -17,12 +24,16 @@ type UIState = {
 	subtitleColor: string;
 	subtitleSizeIndex: number;
 	subtitleSpaceIndex: number;
+	scheduleInfoAlignment: string;
 	scheduleInfoWidth: number;
 	scheduleInfoColor: string;
 	scheduleInfoSizeIndex: number;
 	scheduleInfoSpaceIndex: number;
+	scheduleInfoDateSpaceIndex: number;
+	scheduleInfoPlaceSpaceIndex: number;
 
-	setEventColor: (color: string) => void;
+	setPrimaryColor: (color: string) => void;
+	setAccentColor: (color: string) => void;
 	setCompanyLogoFill: (fill: string) => void;
 	setCompanyLogoSpaceIndex: (index: number) => void;
 	setEventLogoWidth: (width: number) => void;
@@ -31,43 +42,83 @@ type UIState = {
 	setSubtitleColor: (color: string) => void;
 	setSubtitleSizeIndex: (index: number) => void;
 	setSubtitleSpaceIndex: (index: number) => void;
+	setScheduleInfoAlignment: (alignment: string) => void;
 	setScheduleInfoWidth: (width: number) => void;
 	setScheduleInfoColor: (color: string) => void;
 	setScheduleInfoSizeIndex: (index: number) => void;
 	setScheduleInfoSpaceIndex: (index: number) => void;
+	setScheduleInfoDateSpaceIndex: (index: number) => void;
+	setScheduleInfoPlaceSpaceIndex: (index: number) => void;
 };
 
-export const useUIStore = create<UIState>((set) => ({
-	sizes: fontSizes,
-	spaces: spaces,
+export const useUIStore = create<UIState>()(
+	persist(
+		(set) => ({
+			colors: colors,
+			sizes: fontSizes,
+			spaces: spaces,
+			relativeSpaces: relativeSpaces,
+			alignments: alignments,
 
-	eventColor: "#ffffff",
-	companyLogoFill: "dark",
-	companyLogoSpaceIndex: 21,
-	eventLogoWidth: 90,
-	eventLogoSpaceIndex: 13,
-	subtitleWidth: 100,
-	subtitleColor: "dark",
-	subtitleSizes: fontSizes,
-	subtitleSizeIndex: 17,
-	subtitleSpaceIndex: 13,
-	scheduleInfoWidth: 100,
-	scheduleInfoColor: "dark",
-	scheduleInfoSizes: fontSizes,
-	scheduleInfoSizeIndex: 12,
-	scheduleInfoSpaceIndex: 9,
+			primaryColor: "#ffffff",
+			accentColor: "#232323",
+			companyLogoFill: "dark",
+			companyLogoSpaceIndex: 21,
+			eventLogoWidth: 90,
+			eventLogoSpaceIndex: 13,
+			subtitleWidth: 100,
+			subtitleColor: "dark",
+			subtitleSizes: fontSizes,
+			subtitleSizeIndex: 17,
+			subtitleSpaceIndex: 13,
+			scheduleInfoAlignment: "top",
+			scheduleInfoWidth: 100,
+			scheduleInfoColor: "dark",
+			scheduleInfoSizes: fontSizes,
+			scheduleInfoSizeIndex: 12,
+			scheduleInfoSpaceIndex: 9,
+			scheduleInfoDateSpaceIndex: 2,
+			scheduleInfoPlaceSpaceIndex: 0,
 
-	setEventColor: (color) => set({ eventColor: color }),
-	setCompanyLogoFill: (fill) => set({ companyLogoFill: fill }),
-	setCompanyLogoSpaceIndex: (index) => set({ companyLogoSpaceIndex: index }),
-	setEventLogoWidth: (width) => set({ eventLogoWidth: width }),
-	setEventLogoSpaceIndex: (index) => set({ eventLogoSpaceIndex: index }),
-	setSubtitleWidth: (width) => set({ subtitleWidth: width }),
-	setSubtitleColor: (color) => set({ subtitleColor: color }),
-	setSubtitleSizeIndex: (index) => set({ subtitleSizeIndex: index }),
-	setSubtitleSpaceIndex: (index) => set({ subtitleSpaceIndex: index }),
-	setScheduleInfoWidth: (width) => set({ scheduleInfoWidth: width }),
-	setScheduleInfoColor: (color) => set({ scheduleInfoColor: color }),
-	setScheduleInfoSizeIndex: (index) => set({ scheduleInfoSizeIndex: index }),
-	setScheduleInfoSpaceIndex: (index) => set({ scheduleInfoSpaceIndex: index }),
-}));
+			setPrimaryColor: (color) => set({ primaryColor: color }),
+			setAccentColor: (color) => set({ accentColor: color }),
+			setCompanyLogoFill: (fill) => set({ companyLogoFill: fill }),
+			setCompanyLogoSpaceIndex: (index) => set({ companyLogoSpaceIndex: index }),
+			setEventLogoWidth: (width) => set({ eventLogoWidth: width }),
+			setEventLogoSpaceIndex: (index) => set({ eventLogoSpaceIndex: index }),
+			setSubtitleWidth: (width) => set({ subtitleWidth: width }),
+			setSubtitleColor: (color) => set({ subtitleColor: color }),
+			setSubtitleSizeIndex: (index) => set({ subtitleSizeIndex: index }),
+			setSubtitleSpaceIndex: (index) => set({ subtitleSpaceIndex: index }),
+			setScheduleInfoAlignment: (alignment) => set({ scheduleInfoAlignment: alignment }),
+			setScheduleInfoWidth: (width) => set({ scheduleInfoWidth: width }),
+			setScheduleInfoColor: (color) => set({ scheduleInfoColor: color }),
+			setScheduleInfoSizeIndex: (index) => set({ scheduleInfoSizeIndex: index }),
+			setScheduleInfoSpaceIndex: (index) => set({ scheduleInfoSpaceIndex: index }),
+			setScheduleInfoDateSpaceIndex: (index) => set({ scheduleInfoDateSpaceIndex: index }),
+			setScheduleInfoPlaceSpaceIndex: (index) => set({ scheduleInfoPlaceSpaceIndex: index }),
+		}),
+		{
+			name: "ui-store", // unique name in localStorage
+			partialize: (state) => ({
+				primaryColor: state.primaryColor,
+				accentColor: state.accentColor,
+				companyLogoFill: state.companyLogoFill,
+				companyLogoSpaceIndex: state.companyLogoSpaceIndex,
+				eventLogoWidth: state.eventLogoWidth,
+				eventLogoSpaceIndex: state.eventLogoSpaceIndex,
+				subtitleWidth: state.subtitleWidth,
+				subtitleColor: state.subtitleColor,
+				subtitleSizeIndex: state.subtitleSizeIndex,
+				subtitleSpaceIndex: state.subtitleSpaceIndex,
+				scheduleInfoAlignment: state.scheduleInfoAlignment,
+				scheduleInfoWidth: state.scheduleInfoWidth,
+				scheduleInfoColor: state.scheduleInfoColor,
+				scheduleInfoSizeIndex: state.scheduleInfoSizeIndex,
+				scheduleInfoSpaceIndex: state.scheduleInfoSpaceIndex,
+				scheduleInfoDateSpaceIndex: state.scheduleInfoDateSpaceIndex,
+				scheduleInfoPlaceSpaceIndex: state.scheduleInfoPlaceSpaceIndex,
+			}),
+		}
+	)
+);

@@ -1,7 +1,6 @@
 "use client";
 
 import { useUIStore } from "@/stores/useUIStore";
-import { colors } from "@/utils/colors";
 
 type ScheduleProps = {
 	day: string;
@@ -11,23 +10,35 @@ type ScheduleProps = {
 };
 
 export default function ScheduleInfo({ day, month, venue, city }: ScheduleProps) {
-	const spaces = useUIStore((state) => state.spaces);
-	const scheduleInfoSpaceIndex = useUIStore((state) => state.scheduleInfoSpaceIndex);
+	const colors = useUIStore((state) => state.colors);
 	const sizes = useUIStore((state) => state.sizes);
+	const spaces = useUIStore((state) => state.spaces);
+	const relativeSpaces = useUIStore((state) => state.relativeSpaces);
+	const alignments = useUIStore((state) => state.alignments);
+
+	const scheduleInfoAlignment = useUIStore((state) => state.scheduleInfoAlignment);
+	const scheduleInfoSpaceIndex = useUIStore((state) => state.scheduleInfoSpaceIndex);
 	const scheduleInfoSizeIndex = useUIStore((state) => state.scheduleInfoSizeIndex);
 	const scheduleInfoWidth = useUIStore((state) => state.scheduleInfoWidth);
 	const scheduleInfoColor = useUIStore((state) => state.scheduleInfoColor);
+	const scheduleInfoDateSpaceIndex = useUIStore((state) => state.scheduleInfoDateSpaceIndex);
+	const scheduleInfoPlaceSpaceIndex = useUIStore((state) => state.scheduleInfoPlaceSpaceIndex);
+
+	const accentColor = useUIStore((state) => state.accentColor);
 
 	return (
-		<ul className="mt-auto space-y-[0.5em] font-bold leading-none uppercase" style={{ width: scheduleInfoWidth + "%", marginBottom: spaces[scheduleInfoSpaceIndex] + "px", color: colors[scheduleInfoColor], fontSize: sizes[scheduleInfoSizeIndex] + "px" }}>
-			<li className="relative pl-[0.375em] before:block before:w-[0.125em] before:absolute before:top-[0.0625em] before:bottom-[0.1875em] before:left-0 before:bg-[#b98362]">
-				{day}. {month}
-			</li>
-			<li className="relative pl-[0.375em] before:block before:w-[0.125em] before:absolute before:top-[0.0625em] before:bottom-[0.1875em] before:left-0 before:bg-[#b98362]">
-				{venue}
-				<br aria-hidden="true" />
-				<span className="font-normal">{city}</span>
-			</li>
-		</ul>
+		<div className="grow shrink-0 flex flex-col" style={{ justifyContent: alignments[scheduleInfoAlignment] }}>
+			<ul className="font-bold leading-none uppercase" style={{ width: scheduleInfoWidth + "%", marginBottom: spaces[scheduleInfoSpaceIndex] + "px", color: colors[scheduleInfoColor], fontSize: sizes[scheduleInfoSizeIndex] + "px" }}>
+				<li className="flex flex-col relative pl-[0.375em]" style={{ marginBottom: relativeSpaces[scheduleInfoDateSpaceIndex] + "em" }}>
+					<span className="block w-[0.125em] absolute top-[0.0625em] bottom-[0.1875em] left-0" style={{ backgroundColor: accentColor }}></span>
+					{day}. {month}
+				</li>
+				<li className="flex flex-col relative pl-[0.375em]">
+					<span className="block w-[0.125em] absolute top-[0.0625em] bottom-[0.1875em] left-0" style={{ backgroundColor: accentColor }}></span>
+					<span style={{ marginBottom: relativeSpaces[scheduleInfoPlaceSpaceIndex] + "em" }}>{venue}</span>
+					<span className="font-normal">{city}</span>
+				</li>
+			</ul>
+		</div>
 	);
 }
