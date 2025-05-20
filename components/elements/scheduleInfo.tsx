@@ -11,13 +11,15 @@ type ScheduleProps = {
 };
 
 export default function ScheduleInfo({ day, month, venue, city }: ScheduleProps) {
-	const scheduleInfoSizes = useUIStore((state) => state.scheduleInfoSizes);
+	const spaces = useUIStore((state) => state.spaces);
+	const scheduleInfoSpaceIndex = useUIStore((state) => state.scheduleInfoSpaceIndex);
+	const sizes = useUIStore((state) => state.sizes);
 	const scheduleInfoSizeIndex = useUIStore((state) => state.scheduleInfoSizeIndex);
 	const scheduleInfoWidth = useUIStore((state) => state.scheduleInfoWidth);
 	const scheduleInfoColor = useUIStore((state) => state.scheduleInfoColor);
 
 	return (
-		<ul className="mt-auto space-y-[0.5em] font-bold leading-none uppercase" style={{ width: scheduleInfoWidth + "%", color: colors[scheduleInfoColor], fontSize: scheduleInfoSizes[scheduleInfoSizeIndex] + "px" }}>
+		<ul className="mt-auto space-y-[0.5em] font-bold leading-none uppercase" style={{ width: scheduleInfoWidth + "%", marginBottom: spaces[scheduleInfoSpaceIndex] + "px", color: colors[scheduleInfoColor], fontSize: sizes[scheduleInfoSizeIndex] + "px" }}>
 			<li className="relative pl-[0.375em] before:block before:w-[0.125em] before:absolute before:top-[0.0625em] before:bottom-[0.1875em] before:left-0 before:bg-[#b98362]">
 				{day}. {month}
 			</li>

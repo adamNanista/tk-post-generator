@@ -4,10 +4,12 @@ import { useUIStore } from "@/stores/useUIStore";
 import { colors } from "@/utils/colors";
 
 export default function CompanyLogo() {
+	const spaces = useUIStore((state) => state.spaces);
+	const companyLogoSpaceIndex = useUIStore((state) => state.companyLogoSpaceIndex);
 	const companyLogoFill = useUIStore((state) => state.companyLogoFill);
 
 	return (
-		<svg className="block w-[384px] mx-auto" fill={colors[companyLogoFill]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.759 45.233" preserveAspectRatio="xMidYMid meet">
+		<svg className="block w-[384px] mx-auto" style={{ marginBottom: spaces[companyLogoSpaceIndex] + "px" }} fill={colors[companyLogoFill]} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.759 45.233" preserveAspectRatio="xMidYMid meet">
 			<polygon points="12.062 16.691 20.756 16.691 20.756 29.682 26.697 29.682 26.697 16.691 35.391 16.691 35.391 12.423 12.062 12.423 12.062 16.691" />
 			<path d="M53.763,21.117h-9.277v-4.453h9.484c1.785,0,2.253.078,2.722.493.379.363.496.853.496,1.941,0,1.681-.557,2.019-3.425,2.019M63.16,18.011c0-2.69-.791-4.27-2.488-4.967-1.142-.466-2.459-.623-5.269-.623h-16.83v17.261h5.913v-4.347h9.103c1.609,0,2.078.051,2.546.335.528.338.733.882.733,1.865v2.147h6.028v-2.717c0-1.476-.234-2.251-.82-2.847-.584-.621-1.345-.828-3.394-.93-.147,0-.527-.027-.967-.053,2.634-.336,3.542-.594,4.216-1.215.847-.802,1.23-2.045,1.23-3.908" />
 			<polygon points="72.401 22.721 87.268 22.721 87.268 19.307 72.401 19.307 72.401 16.329 88.175 16.329 88.175 12.422 66.547 12.422 66.547 29.681 88.382 29.681 88.382 25.775 72.401 25.775 72.401 22.721" />

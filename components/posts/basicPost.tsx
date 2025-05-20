@@ -4,28 +4,25 @@ import { useRef } from "react";
 import { toPng } from "html-to-image";
 import { useUIStore } from "@/stores/useUIStore";
 
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import WidthControl from "@/components/controls/widthControl";
+import SpaceControl from "@/components/controls/spaceControl";
+import ColorControl from "@/components/controls/colorControl";
+import SizeControl from "@/components/controls/sizeControl";
 
 import EventColorControl from "@/components/controls/eventColorControl";
 
-import CompanyLogoFillControl from "@/components/controls/companyLogoFillControl";
 import CompanyLogo from "@/components/elements/companyLogo";
-
-import EventLogoWidthControl from "@/components/controls/eventLogoWidthControl";
 import EventLogo from "@/components/elements/eventLogo";
-
-import SubtitleWidthControl from "@/components/controls/subtitleWidthControl";
-import SubtitleColorControl from "@/components/controls/subtitleColorControl";
-import SubtitleSizeControl from "@/components/controls/subtitleSizeControl";
 import Subtitle from "@/components/elements/subtitle";
-
-import ScheduleInfoWidthControl from "@/components/controls/scheduleInfoWidthControl";
-import ScheduleInfoColorControl from "@/components/controls/scheduleInfoColorControl";
-import ScheduleInfoSizeControl from "@/components/controls/scheduleInfoSizeControl";
 import ScheduleInfo from "@/components/elements/scheduleInfo";
-
-import DownloadIcon from "@mui/icons-material/Download";
 import CallToAction from "@/components/elements/callToAction";
+
+import Button from "@mui/material/Button";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import DownloadIcon from "@mui/icons-material/Download";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function BasicPost({ data }: { data: any }) {
 	const postRef = useRef<HTMLDivElement>(null);
@@ -53,37 +50,51 @@ export default function BasicPost({ data }: { data: any }) {
 				</div>
 				<div>
 					<Accordion disableGutters>
-						<AccordionSummary>Všeobecné</AccordionSummary>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Všeobecné</AccordionSummary>
 						<AccordionDetails>
-							<EventColorControl />
+							<div className="space-y-6">
+								<EventColorControl />
+							</div>
 						</AccordionDetails>
 					</Accordion>
 					<Accordion disableGutters>
-						<AccordionSummary>TK logo</AccordionSummary>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Logo TREND konferencie</AccordionSummary>
 						<AccordionDetails>
-							<CompanyLogoFillControl />
+							<div className="space-y-6">
+								<ColorControl label="Farba" name="companyLogoFill" valueGetter={(state) => state.companyLogoFill} valueSetter={(state) => state.setCompanyLogoFill} />
+								<SpaceControl label="Odsadenie" name="companyLogoSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.companyLogoSpaceIndex} indexSetter={(state) => state.setCompanyLogoSpaceIndex} />
+							</div>
 						</AccordionDetails>
 					</Accordion>
 					<Accordion disableGutters>
-						<AccordionSummary>Event logo</AccordionSummary>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Logo eventu</AccordionSummary>
 						<AccordionDetails>
-							<EventLogoWidthControl />
+							<div className="space-y-6">
+								<WidthControl label="Šírka" name="eventLogoWidth" valueGetter={(state) => state.eventLogoWidth} valueSetter={(state) => state.setEventLogoWidth} />
+								<SpaceControl label="Odsadenie" name="eventLogoSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.eventLogoSpaceIndex} indexSetter={(state) => state.setEventLogoSpaceIndex} />
+							</div>
 						</AccordionDetails>
 					</Accordion>
 					<Accordion disableGutters>
-						<AccordionSummary>Nadpis</AccordionSummary>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Nadpis</AccordionSummary>
 						<AccordionDetails>
-							<SubtitleWidthControl />
-							<SubtitleColorControl />
-							<SubtitleSizeControl />
+							<div className="space-y-6">
+								<WidthControl label="Šírka" name="subtitleWidth" valueGetter={(state) => state.subtitleWidth} valueSetter={(state) => state.setSubtitleWidth} />
+								<ColorControl label="Farba" name="subtitleColor" valueGetter={(state) => state.subtitleColor} valueSetter={(state) => state.setSubtitleColor} />
+								<SizeControl label="Veľkosť písma" name="subtitleSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.subtitleSizeIndex} indexSetter={(state) => state.setSubtitleSizeIndex} />
+								<SpaceControl label="Odsadenie" name="subtitleSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.subtitleSpaceIndex} indexSetter={(state) => state.setSubtitleSpaceIndex} />
+							</div>
 						</AccordionDetails>
 					</Accordion>
 					<Accordion disableGutters>
-						<AccordionSummary>Dátum</AccordionSummary>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Dátum/miesto</AccordionSummary>
 						<AccordionDetails>
-							<ScheduleInfoWidthControl />
-							<ScheduleInfoColorControl />
-							<ScheduleInfoSizeControl />
+							<div className="space-y-6">
+								<WidthControl label="Šírka dátumu" name="scheduleInfoWidth" valueGetter={(state) => state.scheduleInfoWidth} valueSetter={(state) => state.setScheduleInfoWidth} />
+								<ColorControl label="Farba dátumu" name="scheduleInfoColor" valueGetter={(state) => state.scheduleInfoColor} valueSetter={(state) => state.setScheduleInfoColor} />
+								<SizeControl label="Veľkosť písma dátumu" name="scheduleInfoSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.scheduleInfoSizeIndex} indexSetter={(state) => state.setScheduleInfoSizeIndex} />
+								<SpaceControl label="Odsadenie" name="scheduleInfoSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.scheduleInfoSpaceIndex} indexSetter={(state) => state.setScheduleInfoSpaceIndex} />
+							</div>
 						</AccordionDetails>
 					</Accordion>
 				</div>
@@ -92,7 +103,7 @@ export default function BasicPost({ data }: { data: any }) {
 				<div className="w-[540px] h-[675px] overflow-hidden">
 					<div className="origin-top-left scale-50">
 						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[url(/reality-development-2025-basic-bg.png)]" style={{ backgroundColor: eventColor }}>
-							<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px] pb-[48px]">
+							<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
 								<CompanyLogo />
 								<EventLogo />
 								<Subtitle text={data.event.additionalName} />
@@ -103,10 +114,9 @@ export default function BasicPost({ data }: { data: any }) {
 					</div>
 				</div>
 				<div className="flex justify-end">
-					<button className="inline-flex items-center space-x-1.5 cursor-pointer px-4 py-2 text-neutral-600 bg-neutral-50 border border-neutral-200 rounded-full" onClick={handleDownload}>
-						<DownloadIcon fontSize="small" />
-						<span>Stiahnuť</span>
-					</button>
+					<Button variant="contained" size="small" startIcon={<DownloadIcon />} onClick={handleDownload}>
+						Stiahnuť
+					</Button>
 				</div>
 			</div>
 		</div>
