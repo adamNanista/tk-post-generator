@@ -1,15 +1,35 @@
 "use client";
 
+import { useUIStore } from "@/stores/useUIStore";
+
 type ThemeProps = {
 	title: string;
 	description: string;
 };
 
 export default function Theme({ title, description }: ThemeProps) {
+	const colors = useUIStore((state) => state.colors);
+	const sizes = useUIStore((state) => state.sizes);
+	const spaces = useUIStore((state) => state.spaces);
+
+	const themeWidth = useUIStore((state) => state.themeWidth);
+	const themeBadgeColor = useUIStore((state) => state.themeBadgeColor);
+	const themeBadgeBackgroundColor = useUIStore((state) => state.themeBadgeBackgroundColor);
+	const themeBadgeSizeIndex = useUIStore((state) => state.themeBadgeSizeIndex);
+	const themeBadgeSpaceIndex = useUIStore((state) => state.themeBadgeSpaceIndex);
+	const themeTitleColor = useUIStore((state) => state.themeTitleColor);
+	const themeTitleSizeIndex = useUIStore((state) => state.themeTitleSizeIndex);
+
 	return (
-		<div className="space-y-6">
-			{title && <span className="inline-flex px-4 py-3 text-[#ffffff] text-[32px] font-bold leading-none uppercase bg-[#232323]">{title}</span>}
-			<h2 className="font-[Guardian_Egyp] text-[#232323] text-[60px] font-bold leading-none text-pretty">{description}</h2>
+		<div style={{ width: themeWidth + "%" }}>
+			{title && (
+				<span className="inline-flex px-[0.5em] py-[0.375em] font-bold leading-none uppercase" style={{ marginBottom: spaces[themeBadgeSpaceIndex] + "px", color: colors[themeBadgeColor], fontSize: sizes[themeBadgeSizeIndex] + "px", backgroundColor: colors[themeBadgeBackgroundColor] }}>
+					{title}
+				</span>
+			)}
+			<h2 className="font-[Guardian_Egyp] text-[64px] font-bold leading-none text-pretty" style={{ color: colors[themeTitleColor], fontSize: sizes[themeTitleSizeIndex] + "px" }}>
+				{description}
+			</h2>
 		</div>
 	);
 }

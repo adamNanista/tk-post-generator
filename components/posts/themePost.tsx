@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { toPng } from "html-to-image";
 import { useUIStore } from "@/stores/useUIStore";
 
-import { parseProgramItems } from "@/lib/parseProgram";
+import { parseThemes } from "@/lib/parseThemes";
 
 import ColorPicker from "@/components/controls/colorPicker";
 import WidthControl from "@/components/controls/widthControl";
@@ -24,7 +24,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function ThemePost({ data }: { data: any }) {
-	const parsedItems = parseProgramItems(data.event.program);
+	const parsedThemes = parseThemes(data.event.program);
 
 	const postRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -79,10 +79,24 @@ export default function ThemePost({ data }: { data: any }) {
 							</div>
 						</AccordionDetails>
 					</Accordion>
+					<Accordion disableGutters>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Téma</AccordionSummary>
+						<AccordionDetails>
+							<div className="space-y-6">
+								<WidthControl label="Šírka" name="themeWidth" valueGetter={(state) => state.themeWidth} valueSetter={(state) => state.setThemeWidth} />
+								<ColorControl label="Farba textu odznaku" name="themeBadgeColor" valueGetter={(state) => state.themeBadgeColor} valueSetter={(state) => state.setThemeBadgeColor} />
+								<ColorControl label="Farba pozadia odznaku" name="themeBadgeBackgroundColor" valueGetter={(state) => state.themeBadgeBackgroundColor} valueSetter={(state) => state.setThemeBadgeBackgroundColor} />
+								<SizeControl label="Veľkosť písma odznaku" name="themeBadgeSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeBadgeSizeIndex} indexSetter={(state) => state.setThemeBadgeSizeIndex} />
+								<SpaceControl label="Odsadenie odznaku" name="themeBadgeSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.themeBadgeSpaceIndex} indexSetter={(state) => state.setThemeBadgeSpaceIndex} />
+								<ColorControl label="Farba textu nadpisu" name="themeTitleColor" valueGetter={(state) => state.themeTitleColor} valueSetter={(state) => state.setThemeTitleColor} />
+								<SizeControl label="Veľkosť písma nadpisu" name="themeTitleSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeTitleSizeIndex} indexSetter={(state) => state.setThemeTitleSizeIndex} />
+							</div>
+						</AccordionDetails>
+					</Accordion>
 				</div>
 			</div>
 			<div className="flex flex-col items-center grow max-h-screen overflow-auto p-12 space-y-12">
-				{Object.entries(parsedItems).map(([key, value], idx) => (
+				{Object.entries(parsedThemes).map(([key, value], idx) => (
 					<div key={idx}>
 						<div className="space-y-6">
 							<div className="w-[540px] h-[675px] overflow-hidden">

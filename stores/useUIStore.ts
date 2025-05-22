@@ -31,6 +31,13 @@ type UIState = {
 	scheduleInfoSpaceIndex: number;
 	scheduleInfoDateSpaceIndex: number;
 	scheduleInfoPlaceSpaceIndex: number;
+	themeWidth: number;
+	themeBadgeColor: string;
+	themeBadgeBackgroundColor: string;
+	themeBadgeSizeIndex: number;
+	themeBadgeSpaceIndex: number;
+	themeTitleColor: string;
+	themeTitleSizeIndex: number;
 
 	setPrimaryColor: (color: string) => void;
 	setAccentColor: (color: string) => void;
@@ -49,6 +56,13 @@ type UIState = {
 	setScheduleInfoSpaceIndex: (index: number) => void;
 	setScheduleInfoDateSpaceIndex: (index: number) => void;
 	setScheduleInfoPlaceSpaceIndex: (index: number) => void;
+	setThemeWidth: (width: number) => void;
+	setThemeBadgeColor: (color: string) => void;
+	setThemeBadgeBackgroundColor: (color: string) => void;
+	setThemeBadgeSizeIndex: (index: number) => void;
+	setThemeBadgeSpaceIndex: (index: number) => void;
+	setThemeTitleColor: (color: string) => void;
+	setThemeTitleSizeIndex: (index: number) => void;
 };
 
 export const useUIStore = create<UIState>()(
@@ -79,6 +93,13 @@ export const useUIStore = create<UIState>()(
 			scheduleInfoSpaceIndex: 9,
 			scheduleInfoDateSpaceIndex: 2,
 			scheduleInfoPlaceSpaceIndex: 0,
+			themeWidth: 100,
+			themeBadgeColor: "light",
+			themeBadgeBackgroundColor: "dark",
+			themeBadgeSizeIndex: 5,
+			themeBadgeSpaceIndex: 3,
+			themeTitleColor: "dark",
+			themeTitleSizeIndex: 13,
 
 			setPrimaryColor: (color) => set({ primaryColor: color }),
 			setAccentColor: (color) => set({ accentColor: color }),
@@ -97,9 +118,16 @@ export const useUIStore = create<UIState>()(
 			setScheduleInfoSpaceIndex: (index) => set({ scheduleInfoSpaceIndex: index }),
 			setScheduleInfoDateSpaceIndex: (index) => set({ scheduleInfoDateSpaceIndex: index }),
 			setScheduleInfoPlaceSpaceIndex: (index) => set({ scheduleInfoPlaceSpaceIndex: index }),
+			setThemeWidth: (width) => set({ themeWidth: width }),
+			setThemeBadgeColor: (color) => set({ themeBadgeColor: color }),
+			setThemeBadgeBackgroundColor: (color) => set({ themeBadgeBackgroundColor: color }),
+			setThemeBadgeSizeIndex: (index) => set({ themeBadgeSizeIndex: index }),
+			setThemeBadgeSpaceIndex: (index) => set({ themeBadgeSpaceIndex: index }),
+			setThemeTitleColor: (color) => set({ themeTitleColor: color }),
+			setThemeTitleSizeIndex: (index) => set({ themeTitleSizeIndex: index }),
 		}),
 		{
-			name: "ui-store", // unique name in localStorage
+			name: "reality-development-2025", // unique name in localStorage
 			partialize: (state) => ({
 				primaryColor: state.primaryColor,
 				accentColor: state.accentColor,
@@ -118,6 +146,13 @@ export const useUIStore = create<UIState>()(
 				scheduleInfoSpaceIndex: state.scheduleInfoSpaceIndex,
 				scheduleInfoDateSpaceIndex: state.scheduleInfoDateSpaceIndex,
 				scheduleInfoPlaceSpaceIndex: state.scheduleInfoPlaceSpaceIndex,
+				themeWidth: state.themeWidth,
+				themeBadgeColor: state.themeBadgeColor,
+				themeBadgeBackgroundColor: state.themeBadgeBackgroundColor,
+				themeBadgeSizeIndex: state.themeBadgeSizeIndex,
+				themeBadgeSpaceIndex: state.themeBadgeSpaceIndex,
+				themeTitleColor: state.themeTitleColor,
+				themeTitleSizeIndex: state.themeTitleSizeIndex,
 			}),
 		}
 	)

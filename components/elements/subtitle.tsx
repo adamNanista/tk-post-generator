@@ -33,7 +33,7 @@ export default function Subtitle({ text }: SubtitleProps) {
 	};
 
 	return (
-		<h1 className="font-light leading-none text-pretty" style={{ width: subtitleWidth + "%", marginBottom: spaces[subtitleSpaceIndex], color: colors[subtitleColor], fontSize: sizes[subtitleSizeIndex] }}>
+		<h1 className="font-light leading-none text-pretty" style={{ width: subtitleWidth + "%", marginBottom: spaces[subtitleSpaceIndex] + "px", color: colors[subtitleColor], fontSize: sizes[subtitleSizeIndex] + "px" }}>
 			{boldify(text)}
 		</h1>
 	);

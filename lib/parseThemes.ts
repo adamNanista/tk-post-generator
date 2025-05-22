@@ -8,7 +8,7 @@ type ProgramItem = {
 	tags?: string[];
 };
 
-export function parseProgramItems(program: ProgramSection[]): Record<string, string> {
+export function parseThemes(program: ProgramSection[]): Record<string, string> {
 	const parsed: Record<string, string> = {};
 
 	program.forEach((section) => {
