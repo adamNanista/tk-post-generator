@@ -21,6 +21,7 @@ export default function ScheduleInfo({ day, month, venue, city }: ScheduleProps)
 	const scheduleInfoSizeIndex = useUIStore((state) => state.scheduleInfoSizeIndex);
 	const scheduleInfoWidth = useUIStore((state) => state.scheduleInfoWidth);
 	const scheduleInfoColor = useUIStore((state) => state.scheduleInfoColor);
+	const scheduleInfoPipeColor = useUIStore((state) => state.scheduleInfoPipeColor);
 	const scheduleInfoDateSpaceIndex = useUIStore((state) => state.scheduleInfoDateSpaceIndex);
 	const scheduleInfoPlaceSpaceIndex = useUIStore((state) => state.scheduleInfoPlaceSpaceIndex);
 
@@ -30,11 +31,11 @@ export default function ScheduleInfo({ day, month, venue, city }: ScheduleProps)
 		<div className="grow shrink-0 flex flex-col" style={{ justifyContent: alignments[scheduleInfoAlignment] }}>
 			<ul className="font-bold leading-none uppercase" style={{ width: scheduleInfoWidth + "%", marginBottom: spaces[scheduleInfoSpaceIndex] + "px", color: colors[scheduleInfoColor], fontSize: sizes[scheduleInfoSizeIndex] + "px" }}>
 				<li className="flex flex-col relative pl-[0.375em]" style={{ marginBottom: relativeSpaces[scheduleInfoDateSpaceIndex] + "em" }}>
-					<span className="block w-[0.125em] absolute top-[0.0625em] bottom-[0.1875em] left-0" style={{ backgroundColor: accentColor }}></span>
+					<span className="block w-[0.125em] absolute top-[0.0625em] bottom-[0.1875em] left-0" style={{ backgroundColor: colors[scheduleInfoPipeColor] }}></span>
 					{day}. {month}
 				</li>
 				<li className="flex flex-col relative pl-[0.375em]">
-					<span className="block w-[0.125em] absolute top-[0.0625em] bottom-[0.1875em] left-0" style={{ backgroundColor: accentColor }}></span>
+					<span className="block w-[0.125em] absolute top-[0.0625em] bottom-[0.1875em] left-0" style={{ backgroundColor: colors[scheduleInfoPipeColor] }}></span>
 					<span style={{ marginBottom: relativeSpaces[scheduleInfoPlaceSpaceIndex] + "em" }}>{venue}</span>
 					<span className="font-normal">{city}</span>
 				</li>

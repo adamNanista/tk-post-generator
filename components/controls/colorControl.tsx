@@ -10,19 +10,21 @@ type ColorControlProps = {
 };
 
 export default function ColorControl({ label, name, valueGetter, valueSetter }: ColorControlProps) {
+	const colors = useUIStore((state) => state.colors);
+
 	const value = useUIStore(valueGetter);
 	const setValue = useUIStore(valueSetter);
 
 	return (
 		<fieldset className="space-y-2">
 			<legend>{label}</legend>
-			<div className="space-x-6">
-				<label>
-					<input type="radio" name={name} value="dark" checked={value === "dark"} onChange={() => setValue("dark")} /> Tmavá
-				</label>
-				<label>
-					<input type="radio" name={name} value="light" checked={value === "light"} onChange={() => setValue("light")} /> Svetlá
-				</label>
+			<div className="flex flex-col space-y-2">
+				{Object.entries(colors).map(([key, index]) => (
+					<label key={key} className="inline-flex items-center space-x-2">
+						<input type="radio" name={name} value={key} checked={value === key} onChange={() => setValue(key)} />
+						<span>{key}</span>
+					</label>
+				))}
 			</div>
 		</fieldset>
 	);

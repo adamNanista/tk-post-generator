@@ -27,6 +27,7 @@ type UIState = {
 	scheduleInfoAlignment: string;
 	scheduleInfoWidth: number;
 	scheduleInfoColor: string;
+	scheduleInfoPipeColor: string;
 	scheduleInfoSizeIndex: number;
 	scheduleInfoSpaceIndex: number;
 	scheduleInfoDateSpaceIndex: number;
@@ -52,6 +53,7 @@ type UIState = {
 	setScheduleInfoAlignment: (alignment: string) => void;
 	setScheduleInfoWidth: (width: number) => void;
 	setScheduleInfoColor: (color: string) => void;
+	setScheduleInfoPipeColor: (color: string) => void;
 	setScheduleInfoSizeIndex: (index: number) => void;
 	setScheduleInfoSpaceIndex: (index: number) => void;
 	setScheduleInfoDateSpaceIndex: (index: number) => void;
@@ -68,7 +70,11 @@ type UIState = {
 export const useUIStore = create<UIState>()(
 	persist(
 		(set) => ({
-			colors: colors,
+			colors: {
+				...colors,
+				primary: "#ffffff",
+				accent: "#232323",
+			},
 			sizes: fontSizes,
 			spaces: spaces,
 			relativeSpaces: relativeSpaces,
@@ -88,6 +94,7 @@ export const useUIStore = create<UIState>()(
 			scheduleInfoAlignment: "top",
 			scheduleInfoWidth: 100,
 			scheduleInfoColor: "dark",
+			scheduleInfoPipeColor: "light",
 			scheduleInfoSizes: fontSizes,
 			scheduleInfoSizeIndex: 12,
 			scheduleInfoSpaceIndex: 9,
@@ -101,8 +108,8 @@ export const useUIStore = create<UIState>()(
 			themeTitleColor: "dark",
 			themeTitleSizeIndex: 13,
 
-			setPrimaryColor: (color) => set({ primaryColor: color }),
-			setAccentColor: (color) => set({ accentColor: color }),
+			setPrimaryColor: (color) => set((state) => ({ primaryColor: color, colors: { ...state.colors, primary: color } })),
+			setAccentColor: (color) => set((state) => ({ accentColor: color, colors: { ...state.colors, accent: color } })),
 			setCompanyLogoFill: (fill) => set({ companyLogoFill: fill }),
 			setCompanyLogoSpaceIndex: (index) => set({ companyLogoSpaceIndex: index }),
 			setEventLogoWidth: (width) => set({ eventLogoWidth: width }),
@@ -114,6 +121,7 @@ export const useUIStore = create<UIState>()(
 			setScheduleInfoAlignment: (alignment) => set({ scheduleInfoAlignment: alignment }),
 			setScheduleInfoWidth: (width) => set({ scheduleInfoWidth: width }),
 			setScheduleInfoColor: (color) => set({ scheduleInfoColor: color }),
+			setScheduleInfoPipeColor: (color) => set({ scheduleInfoPipeColor: color }),
 			setScheduleInfoSizeIndex: (index) => set({ scheduleInfoSizeIndex: index }),
 			setScheduleInfoSpaceIndex: (index) => set({ scheduleInfoSpaceIndex: index }),
 			setScheduleInfoDateSpaceIndex: (index) => set({ scheduleInfoDateSpaceIndex: index }),
@@ -142,6 +150,7 @@ export const useUIStore = create<UIState>()(
 				scheduleInfoAlignment: state.scheduleInfoAlignment,
 				scheduleInfoWidth: state.scheduleInfoWidth,
 				scheduleInfoColor: state.scheduleInfoColor,
+				scheduleInfoPipeColor: state.scheduleInfoPipeColor,
 				scheduleInfoSizeIndex: state.scheduleInfoSizeIndex,
 				scheduleInfoSpaceIndex: state.scheduleInfoSpaceIndex,
 				scheduleInfoDateSpaceIndex: state.scheduleInfoDateSpaceIndex,
@@ -154,6 +163,26 @@ export const useUIStore = create<UIState>()(
 				themeTitleColor: state.themeTitleColor,
 				themeTitleSizeIndex: state.themeTitleSizeIndex,
 			}),
+			onRehydrateStorage: () => {
+				return (actualState, error) => {
+					if (error) {
+						console.error("Error rehydrating:", error);
+					}
+
+					if (actualState) {
+						let updatedColors = { ...colors };
+
+						if (actualState.primaryColor) {
+							updatedColors.primary = actualState.primaryColor;
+						}
+						if (actualState.accentColor) {
+							updatedColors.accent = actualState.accentColor;
+						}
+
+						actualState.colors = updatedColors;
+					}
+				};
+			},
 		}
 	)
 );

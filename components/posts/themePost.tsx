@@ -105,7 +105,7 @@ export default function ThemePost({ data }: { data: any }) {
 										ref={(el: HTMLDivElement | null) => {
 											postRefs.current[key] = el;
 										}}
-										className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[url(/reality-development-2025-theme-bg.png)]"
+										className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow] bg-[url(/reality-development-2025-theme-bg.png)]"
 										style={{ backgroundColor: primaryColor }}
 									>
 										<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">

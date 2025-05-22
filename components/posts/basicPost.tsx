@@ -94,6 +94,7 @@ export default function BasicPost({ data }: { data: any }) {
 								<AlignmentControl label="Zarovnanie dátumu" name="scheduleInfoAlignment" valueGetter={(state) => state.scheduleInfoAlignment} valueSetter={(state) => state.setScheduleInfoAlignment} />
 								<WidthControl label="Šírka dátumu" name="scheduleInfoWidth" valueGetter={(state) => state.scheduleInfoWidth} valueSetter={(state) => state.setScheduleInfoWidth} />
 								<ColorControl label="Farba dátumu" name="scheduleInfoColor" valueGetter={(state) => state.scheduleInfoColor} valueSetter={(state) => state.setScheduleInfoColor} />
+								<ColorControl label="Farba čiarky" name="scheduleInfoPipeColor" valueGetter={(state) => state.scheduleInfoPipeColor} valueSetter={(state) => state.setScheduleInfoPipeColor} />
 								<SizeControl label="Veľkosť písma dátumu" name="scheduleInfoSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.scheduleInfoSizeIndex} indexSetter={(state) => state.setScheduleInfoSizeIndex} />
 								<SpaceControl label="Odsadenie" name="scheduleInfoSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.scheduleInfoSpaceIndex} indexSetter={(state) => state.setScheduleInfoSpaceIndex} />
 								<SpaceControl label="Odsadenie dátumu" name="scheduleInfoDateSpace" spacesGetter={(state) => state.relativeSpaces} indexGetter={(state) => state.scheduleInfoDateSpaceIndex} indexSetter={(state) => state.setScheduleInfoDateSpaceIndex} />
@@ -106,7 +107,7 @@ export default function BasicPost({ data }: { data: any }) {
 			<div className="m-auto space-y-6">
 				<div className="w-[540px] h-[675px] overflow-hidden">
 					<div className="origin-top-left scale-50">
-						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] font-[Panton_Narrow] bg-[url(/reality-development-2025-basic-bg.png)]" style={{ backgroundColor: primaryColor }}>
+						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow] bg-[url(/reality-development-2025-basic-bg.png)]" style={{ backgroundColor: primaryColor }}>
 							<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
 								<CompanyLogo />
 								<EventLogo />
