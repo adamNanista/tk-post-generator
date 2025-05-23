@@ -1,8 +1,13 @@
-import ThemePost from "@/components/posts/themePost";
+import Link from "next/link";
 
-async function getEventData() {
+type EventProps = {
+	name: string;
+	slugs: string[];
+};
+
+async function getEvents() {
 	try {
-		const res = await fetch("https://tk-stage.k8s-onpremise.newsandmedia.sk/event/reality-development-2025?json=1", { cache: "no-store" });
+		const res = await fetch("https://tk-stage.k8s-onpremise.newsandmedia.sk/eventy?json=1", { cache: "no-store" });
 
 		if (!res.ok) {
 			return { error: `Error: ${res.status}` };
@@ -18,11 +23,19 @@ async function getEventData() {
 }
 
 export default async function Home() {
-	const { data, error } = await getEventData();
+	const { data, error } = await getEvents();
 
 	if (error) {
 		return <p>{error}</p>;
 	}
 
-	return <ThemePost data={data} />;
+	return (
+		<ul>
+			{data.events.map((event: EventProps, idx: number) => (
+				<li key={idx}>
+					<Link href={event.slugs[0]}>{event.name}</Link>
+				</li>
+			))}
+		</ul>
+	);
 }

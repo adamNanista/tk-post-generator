@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef } from "react";
 import { toPng } from "html-to-image";
 import { useUIStore } from "@/stores/useUIStore";
@@ -23,7 +24,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import DownloadIcon from "@mui/icons-material/Download";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function ThemePost({ data }: { data: any }) {
+export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 	const parsedThemes = parseThemes(data.event.program);
 
 	const postRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -47,6 +48,7 @@ export default function ThemePost({ data }: { data: any }) {
 	return (
 		<div className="flex min-h-screen">
 			<div className="flex flex-col w-1/5 min-w-sm max-h-screen overflow-auto p-8 space-y-8 bg-neutral-50 border-r border-r-neutral-200">
+				<Link href={`/${slug}`}>Späť na posty</Link>
 				<div className="space-y-2">
 					<h1 className="text-2xl font-black text-pretty">{data.event.name}</h1>
 					<p>Posty s témami 1080x1350</p>
@@ -105,8 +107,8 @@ export default function ThemePost({ data }: { data: any }) {
 										ref={(el: HTMLDivElement | null) => {
 											postRefs.current[key] = el;
 										}}
-										className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow] bg-[url(/reality-development-2025-theme-bg.png)]"
-										style={{ backgroundColor: primaryColor }}
+										className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]"
+										style={{ backgroundColor: primaryColor, backgroundImage: `url(/${slug}-theme-bg.png)` }}
 									>
 										<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
 											<CompanyLogo />
