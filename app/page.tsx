@@ -30,12 +30,14 @@ export default async function Home() {
 	}
 
 	return (
-		<ul>
-			{data.events.map((event: EventProps, idx: number) => (
-				<li key={idx}>
-					<Link href={event.slugs[0]}>{event.name}</Link>
-				</li>
-			))}
-		</ul>
+		<div className="p-8 space-y-8">
+			<ul className="space-y-2">
+				{data.events.map((event: EventProps, idx: number) => (
+					<li key={idx}>
+						<Link href={event.slugs[0]}>{event.name}</Link>
+					</li>
+				))}
+			</ul>
+		</div>
 	);
 }

@@ -18,10 +18,12 @@ async function getEventData(slug: string) {
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-	const { data, error } = await getEventData(params.slug);
+	const { slug } = await params;
+
+	const { data, error } = await getEventData(slug);
 
 	if (error) {
 		return <p>{error}</p>;
 	}
-	return <ThemePost slug={params.slug} data={data} />;
+	return <ThemePost slug={slug} data={data} />;
 }
