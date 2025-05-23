@@ -100,14 +100,14 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 				</div>
 			</div>
 			<div className="flex flex-col items-center grow max-h-screen overflow-auto p-12 space-y-12">
-				{Object.entries(parsedThemes).map(([key, value], idx) => (
+				{parsedThemes.map(({ title, description }, idx) => (
 					<div key={idx}>
 						<div className="space-y-6">
 							<div className="w-[540px] h-[675px] overflow-hidden">
 								<div className="origin-top-left scale-50">
 									<div
 										ref={(el: HTMLDivElement | null) => {
-											postRefs.current[key] = el;
+											postRefs.current[title] = el;
 										}}
 										className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]"
 										style={{ backgroundColor: primaryColor, backgroundImage: `url(/${slug}-theme-bg.png)` }}
@@ -115,13 +115,13 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 										<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
 											<CompanyLogo useUIStore={useUIStore} />
 											<EventLogo useUIStore={useUIStore} />
-											<Theme title={key} description={value} useUIStore={useUIStore} />
+											<Theme title={title} description={description} useUIStore={useUIStore} />
 										</div>
 									</div>
 								</div>
 							</div>
 							<div className="flex justify-end">
-								<Button variant="contained" size="small" startIcon={<DownloadIcon />} onClick={() => handleDownload(key)}>
+								<Button variant="contained" size="small" startIcon={<DownloadIcon />} onClick={() => handleDownload(title)}>
 									Stiahnuť
 								</Button>
 							</div>
