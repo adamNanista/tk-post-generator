@@ -1,8 +1,10 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
+type CompanyLogoProps = {
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
+};
 
-export default function CompanyLogo() {
+export default function CompanyLogo({ useUIStore }: CompanyLogoProps) {
 	const colors = useUIStore((state) => state.colors);
 	const spaces = useUIStore((state) => state.spaces);
 

@@ -1,15 +1,14 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
-
 type ScheduleProps = {
 	day: string;
 	month: string;
 	venue: string;
 	city: string;
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function ScheduleInfo({ day, month, venue, city }: ScheduleProps) {
+export default function ScheduleInfo({ day, month, venue, city, useUIStore }: ScheduleProps) {
 	const colors = useUIStore((state) => state.colors);
 	const sizes = useUIStore((state) => state.sizes);
 	const spaces = useUIStore((state) => state.spaces);
@@ -24,8 +23,6 @@ export default function ScheduleInfo({ day, month, venue, city }: ScheduleProps)
 	const scheduleInfoPipeColor = useUIStore((state) => state.scheduleInfoPipeColor);
 	const scheduleInfoDateSpaceIndex = useUIStore((state) => state.scheduleInfoDateSpaceIndex);
 	const scheduleInfoPlaceSpaceIndex = useUIStore((state) => state.scheduleInfoPlaceSpaceIndex);
-
-	const accentColor = useUIStore((state) => state.accentColor);
 
 	return (
 		<div className="grow shrink-0 flex flex-col" style={{ justifyContent: alignments[scheduleInfoAlignment] }}>

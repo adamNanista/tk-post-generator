@@ -1,6 +1,5 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
 import { HexColorInput } from "react-colorful";
 
 type ColorPickerProps = {
@@ -8,9 +7,10 @@ type ColorPickerProps = {
 	name: string;
 	valueGetter: (state: any) => string;
 	valueSetter: (state: any) => (index: string) => void;
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function ColorPicker({ label, name, valueGetter, valueSetter }: ColorPickerProps) {
+export default function ColorPicker({ label, name, valueGetter, valueSetter, useUIStore }: ColorPickerProps) {
 	const value = useUIStore(valueGetter);
 	const setValue = useUIStore(valueSetter);
 

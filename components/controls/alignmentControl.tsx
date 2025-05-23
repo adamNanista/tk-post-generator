@@ -1,15 +1,14 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
-
 type AlignmentControlProps = {
 	label: string;
 	name: string;
 	valueGetter: (state: any) => string;
 	valueSetter: (state: any) => (index: string) => void;
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function AlignmentControl({ label, name, valueGetter, valueSetter }: AlignmentControlProps) {
+export default function AlignmentControl({ label, name, valueGetter, valueSetter, useUIStore }: AlignmentControlProps) {
 	const value = useUIStore(valueGetter);
 	const setValue = useUIStore(valueSetter);
 

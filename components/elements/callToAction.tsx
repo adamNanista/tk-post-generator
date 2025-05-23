@@ -1,8 +1,10 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
+type CallToActionProps = {
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
+};
 
-export default function CallToAction() {
+export default function CallToAction({ useUIStore }: CallToActionProps) {
 	const primaryColor = useUIStore((state) => state.primaryColor);
 
 	return (

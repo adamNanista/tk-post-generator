@@ -1,16 +1,15 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
-
 type SizeControlProps = {
 	label: string;
 	name: string;
 	sizesGetter: (state: any) => number[];
 	indexGetter: (state: any) => number;
 	indexSetter: (state: any) => (index: number) => void;
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function SizeControl({ label, name, sizesGetter, indexGetter, indexSetter }: SizeControlProps) {
+export default function SizeControl({ label, name, sizesGetter, indexGetter, indexSetter, useUIStore }: SizeControlProps) {
 	const sizes = useUIStore(sizesGetter);
 	const index = useUIStore(indexGetter);
 	const setIndex = useUIStore(indexSetter);

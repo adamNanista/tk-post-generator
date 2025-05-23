@@ -1,8 +1,10 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
+type EventLogoProps = {
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
+};
 
-export default function EventLogo() {
+export default function EventLogo({ useUIStore }: EventLogoProps) {
 	const spaces = useUIStore((state) => state.spaces);
 
 	const eventLogoSpaceIndex = useUIStore((state) => state.eventLogoSpaceIndex);

@@ -1,13 +1,12 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
-
 type ThemeProps = {
 	title: string;
 	description: string;
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function Theme({ title, description }: ThemeProps) {
+export default function Theme({ title, description, useUIStore }: ThemeProps) {
 	const colors = useUIStore((state) => state.colors);
 	const sizes = useUIStore((state) => state.sizes);
 	const spaces = useUIStore((state) => state.spaces);

@@ -1,12 +1,11 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
-
 type SubtitleProps = {
 	text: string;
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function Subtitle({ text }: SubtitleProps) {
+export default function Subtitle({ text, useUIStore }: SubtitleProps) {
 	const colors = useUIStore((state) => state.colors);
 	const sizes = useUIStore((state) => state.sizes);
 	const spaces = useUIStore((state) => state.spaces);

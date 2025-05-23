@@ -1,16 +1,15 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
-
 type SpaceControlProps = {
 	label: string;
 	name: string;
 	spacesGetter: (state: any) => number[];
 	indexGetter: (state: any) => number;
 	indexSetter: (state: any) => (index: number) => void;
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function SpaceControl({ label, name, spacesGetter, indexGetter, indexSetter }: SpaceControlProps) {
+export default function SpaceControl({ label, name, spacesGetter, indexGetter, indexSetter, useUIStore }: SpaceControlProps) {
 	const spaces = useUIStore(spacesGetter);
 	const index = useUIStore(indexGetter);
 	const setIndex = useUIStore(indexSetter);

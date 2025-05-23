@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { toPng } from "html-to-image";
-import { useUIStore } from "@/stores/useUIStore";
+import { getUIStore } from "@/stores/useUIStore";
 
 import { parseThemes } from "@/lib/parseThemes";
 
@@ -43,6 +43,8 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 		}
 	};
 
+	const useUIStore = useRef(getUIStore("theme-post", slug)).current;
+
 	const primaryColor = useUIStore((state) => state.primaryColor);
 
 	return (
@@ -58,8 +60,8 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Všeobecné</AccordionSummary>
 						<AccordionDetails>
 							<div className="space-y-6">
-								<ColorPicker label="Primary farba" name="primaryColor" valueGetter={(state) => state.primaryColor} valueSetter={(state) => state.setPrimaryColor} />
-								<ColorPicker label="Accent farba" name="accentColor" valueGetter={(state) => state.accentColor} valueSetter={(state) => state.setAccentColor} />
+								<ColorPicker label="Primary farba" name="primaryColor" valueGetter={(state) => state.primaryColor} valueSetter={(state) => state.setPrimaryColor} useUIStore={useUIStore} />
+								<ColorPicker label="Accent farba" name="accentColor" valueGetter={(state) => state.accentColor} valueSetter={(state) => state.setAccentColor} useUIStore={useUIStore} />
 							</div>
 						</AccordionDetails>
 					</Accordion>
@@ -67,8 +69,8 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Logo TREND konferencie</AccordionSummary>
 						<AccordionDetails>
 							<div className="space-y-6">
-								<ColorControl label="Farba" name="companyLogoFill" valueGetter={(state) => state.companyLogoFill} valueSetter={(state) => state.setCompanyLogoFill} />
-								<SpaceControl label="Odsadenie" name="companyLogoSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.companyLogoSpaceIndex} indexSetter={(state) => state.setCompanyLogoSpaceIndex} />
+								<ColorControl label="Farba" name="companyLogoFill" valueGetter={(state) => state.companyLogoFill} valueSetter={(state) => state.setCompanyLogoFill} useUIStore={useUIStore} />
+								<SpaceControl label="Odsadenie" name="companyLogoSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.companyLogoSpaceIndex} indexSetter={(state) => state.setCompanyLogoSpaceIndex} useUIStore={useUIStore} />
 							</div>
 						</AccordionDetails>
 					</Accordion>
@@ -76,8 +78,8 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Logo eventu</AccordionSummary>
 						<AccordionDetails>
 							<div className="space-y-6">
-								<WidthControl label="Šírka" name="eventLogoWidth" valueGetter={(state) => state.eventLogoWidth} valueSetter={(state) => state.setEventLogoWidth} />
-								<SpaceControl label="Odsadenie" name="eventLogoSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.eventLogoSpaceIndex} indexSetter={(state) => state.setEventLogoSpaceIndex} />
+								<WidthControl label="Šírka" name="eventLogoWidth" valueGetter={(state) => state.eventLogoWidth} valueSetter={(state) => state.setEventLogoWidth} useUIStore={useUIStore} />
+								<SpaceControl label="Odsadenie" name="eventLogoSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.eventLogoSpaceIndex} indexSetter={(state) => state.setEventLogoSpaceIndex} useUIStore={useUIStore} />
 							</div>
 						</AccordionDetails>
 					</Accordion>
@@ -85,13 +87,13 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Téma</AccordionSummary>
 						<AccordionDetails>
 							<div className="space-y-6">
-								<WidthControl label="Šírka" name="themeWidth" valueGetter={(state) => state.themeWidth} valueSetter={(state) => state.setThemeWidth} />
-								<ColorControl label="Farba textu odznaku" name="themeBadgeColor" valueGetter={(state) => state.themeBadgeColor} valueSetter={(state) => state.setThemeBadgeColor} />
-								<ColorControl label="Farba pozadia odznaku" name="themeBadgeBackgroundColor" valueGetter={(state) => state.themeBadgeBackgroundColor} valueSetter={(state) => state.setThemeBadgeBackgroundColor} />
-								<SizeControl label="Veľkosť písma odznaku" name="themeBadgeSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeBadgeSizeIndex} indexSetter={(state) => state.setThemeBadgeSizeIndex} />
-								<SpaceControl label="Odsadenie odznaku" name="themeBadgeSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.themeBadgeSpaceIndex} indexSetter={(state) => state.setThemeBadgeSpaceIndex} />
-								<ColorControl label="Farba textu nadpisu" name="themeTitleColor" valueGetter={(state) => state.themeTitleColor} valueSetter={(state) => state.setThemeTitleColor} />
-								<SizeControl label="Veľkosť písma nadpisu" name="themeTitleSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeTitleSizeIndex} indexSetter={(state) => state.setThemeTitleSizeIndex} />
+								<WidthControl label="Šírka" name="themeWidth" valueGetter={(state) => state.themeWidth} valueSetter={(state) => state.setThemeWidth} useUIStore={useUIStore} />
+								<ColorControl label="Farba textu odznaku" name="themeBadgeColor" valueGetter={(state) => state.themeBadgeColor} valueSetter={(state) => state.setThemeBadgeColor} useUIStore={useUIStore} />
+								<ColorControl label="Farba pozadia odznaku" name="themeBadgeBackgroundColor" valueGetter={(state) => state.themeBadgeBackgroundColor} valueSetter={(state) => state.setThemeBadgeBackgroundColor} useUIStore={useUIStore} />
+								<SizeControl label="Veľkosť písma odznaku" name="themeBadgeSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeBadgeSizeIndex} indexSetter={(state) => state.setThemeBadgeSizeIndex} useUIStore={useUIStore} />
+								<SpaceControl label="Odsadenie odznaku" name="themeBadgeSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.themeBadgeSpaceIndex} indexSetter={(state) => state.setThemeBadgeSpaceIndex} useUIStore={useUIStore} />
+								<ColorControl label="Farba textu nadpisu" name="themeTitleColor" valueGetter={(state) => state.themeTitleColor} valueSetter={(state) => state.setThemeTitleColor} useUIStore={useUIStore} />
+								<SizeControl label="Veľkosť písma nadpisu" name="themeTitleSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeTitleSizeIndex} indexSetter={(state) => state.setThemeTitleSizeIndex} useUIStore={useUIStore} />
 							</div>
 						</AccordionDetails>
 					</Accordion>
@@ -111,9 +113,9 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 										style={{ backgroundColor: primaryColor, backgroundImage: `url(/${slug}-theme-bg.png)` }}
 									>
 										<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
-											<CompanyLogo />
-											<EventLogo />
-											<Theme title={key} description={value} />
+											<CompanyLogo useUIStore={useUIStore} />
+											<EventLogo useUIStore={useUIStore} />
+											<Theme title={key} description={value} useUIStore={useUIStore} />
 										</div>
 									</div>
 								</div>

@@ -1,15 +1,14 @@
 "use state";
 
-import { useUIStore } from "@/stores/useUIStore";
-
 type ColorControlProps = {
 	label: string;
 	name: string;
 	valueGetter: (state: any) => string;
 	valueSetter: (state: any) => (value: string) => void;
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function ColorControl({ label, name, valueGetter, valueSetter }: ColorControlProps) {
+export default function ColorControl({ label, name, valueGetter, valueSetter, useUIStore }: ColorControlProps) {
 	const colors = useUIStore((state) => state.colors);
 
 	const value = useUIStore(valueGetter);

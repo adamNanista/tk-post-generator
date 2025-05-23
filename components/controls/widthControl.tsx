@@ -1,15 +1,14 @@
 "use client";
 
-import { useUIStore } from "@/stores/useUIStore";
-
 type WidthControlProps = {
 	label: string;
 	name: string;
 	valueGetter: (state: any) => number;
 	valueSetter: (state: any) => (value: number) => void;
+	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function WidthControl({ label, name, valueGetter, valueSetter }: WidthControlProps) {
+export default function WidthControl({ label, name, valueGetter, valueSetter, useUIStore }: WidthControlProps) {
 	const value = useUIStore(valueGetter);
 	const setValue = useUIStore(valueSetter);
 
