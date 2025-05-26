@@ -1,39 +1,20 @@
-type ProgramSection = {
-	name: string;
-	items: ProgramItem[];
-};
-
-type ProgramItem = {
-	name: string;
-	tags?: string[];
-};
-
-type ParsedProgramItem = {
+type ParsedTheme = {
 	title: string;
 	description: string;
 };
 
-export function parseThemes(program: ProgramSection[]): ParsedProgramItem[] {
-	const parsed: ParsedProgramItem[] = [];
+export function parseThemes(item: any): ParsedTheme | null {
+	const tags = item.tags || [];
 
-	program.forEach((section) => {
-		section.items?.forEach((item) => {
-			const tags = item.tags || [];
+	if (tags.includes("sive")) return null;
 
-			if (tags.includes("sive")) return;
+	if (tags.includes("diskusia")) {
+		const [title, ...rest] = item.name.split(/:(.+)/);
+		return {
+			title: title.trim(),
+			description: (rest[0] || "").trim(),
+		};
+	}
 
-			let title = "";
-			let description = item.name;
-
-			if (tags.includes("diskusia")) {
-				const [k, ...rest] = item.name.split(":");
-				title = k.trim();
-				description = rest.join(":").trim();
-
-				parsed.push({ title, description });
-			}
-		});
-	});
-
-	return parsed;
+	return null;
 }

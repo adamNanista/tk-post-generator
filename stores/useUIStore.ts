@@ -33,6 +33,7 @@ type UIState = {
 	scheduleInfoDateSpaceIndex: number;
 	scheduleInfoPlaceSpaceIndex: number;
 	themeWidth: number;
+	themeSpaceIndex: number;
 	themeBadgeColor: string;
 	themeBadgeBackgroundColor: string;
 	themeBadgeSizeIndex: number;
@@ -59,6 +60,7 @@ type UIState = {
 	setScheduleInfoDateSpaceIndex: (index: number) => void;
 	setScheduleInfoPlaceSpaceIndex: (index: number) => void;
 	setThemeWidth: (width: number) => void;
+	setThemeSpaceIndex: (index: number) => void;
 	setThemeBadgeColor: (color: string) => void;
 	setThemeBadgeBackgroundColor: (color: string) => void;
 	setThemeBadgeSizeIndex: (index: number) => void;
@@ -116,6 +118,7 @@ const createUIStore = (prefix: string, slug: string) => {
 				scheduleInfoDateSpaceIndex: persistedState?.scheduleInfoDateSpaceIndex || 2,
 				scheduleInfoPlaceSpaceIndex: persistedState?.scheduleInfoPlaceSpaceIndex || 0,
 				themeWidth: persistedState?.themeWidth || 100,
+				themeSpaceIndex: persistedState?.themeSpaceIndex || 13,
 				themeBadgeColor: persistedState?.themeBadgeColor || "light",
 				themeBadgeBackgroundColor: persistedState?.themeBadgeBackgroundColor || "dark",
 				themeBadgeSizeIndex: persistedState?.themeBadgeSizeIndex || 5,
@@ -142,6 +145,7 @@ const createUIStore = (prefix: string, slug: string) => {
 				setScheduleInfoDateSpaceIndex: (index) => set({ scheduleInfoDateSpaceIndex: index }),
 				setScheduleInfoPlaceSpaceIndex: (index) => set({ scheduleInfoPlaceSpaceIndex: index }),
 				setThemeWidth: (width) => set({ themeWidth: width }),
+				setThemeSpaceIndex: (index) => set({ themeSpaceIndex: index }),
 				setThemeBadgeColor: (color) => set({ themeBadgeColor: color }),
 				setThemeBadgeBackgroundColor: (color) => set({ themeBadgeBackgroundColor: color }),
 				setThemeBadgeSizeIndex: (index) => set({ themeBadgeSizeIndex: index }),
@@ -171,6 +175,7 @@ const createUIStore = (prefix: string, slug: string) => {
 					scheduleInfoDateSpaceIndex: state.scheduleInfoDateSpaceIndex,
 					scheduleInfoPlaceSpaceIndex: state.scheduleInfoPlaceSpaceIndex,
 					themeWidth: state.themeWidth,
+					themeSpaceIndex: state.themeSpaceIndex,
 					themeBadgeColor: state.themeBadgeColor,
 					themeBadgeBackgroundColor: state.themeBadgeBackgroundColor,
 					themeBadgeSizeIndex: state.themeBadgeSizeIndex,
@@ -211,121 +216,3 @@ export const getUIStore = (prefix: string, slug: string) => {
 	}
 	return storeMap[slug];
 };
-
-/*export const useUIStore = create<UIState>()(
-	persist(
-		(set) => ({
-			colors: {
-				...colors,
-				primary: "#ffffff",
-				accent: "#232323",
-			},
-			sizes: fontSizes,
-			spaces: spaces,
-			relativeSpaces: relativeSpaces,
-			alignments: alignments,
-
-			primaryColor: "#ffffff",
-			accentColor: "#232323",
-			companyLogoFill: "dark",
-			companyLogoSpaceIndex: 21,
-			eventLogoWidth: 90,
-			eventLogoSpaceIndex: 13,
-			subtitleWidth: 100,
-			subtitleColor: "dark",
-			subtitleSizeIndex: 17,
-			subtitleSpaceIndex: 13,
-			scheduleInfoAlignment: "top",
-			scheduleInfoWidth: 100,
-			scheduleInfoColor: "dark",
-			scheduleInfoPipeColor: "light",
-			scheduleInfoSizeIndex: 12,
-			scheduleInfoSpaceIndex: 9,
-			scheduleInfoDateSpaceIndex: 2,
-			scheduleInfoPlaceSpaceIndex: 0,
-			themeWidth: 100,
-			themeBadgeColor: "light",
-			themeBadgeBackgroundColor: "dark",
-			themeBadgeSizeIndex: 5,
-			themeBadgeSpaceIndex: 3,
-			themeTitleColor: "dark",
-			themeTitleSizeIndex: 13,
-
-			setPrimaryColor: (color) => set((state) => ({ primaryColor: color, colors: { ...state.colors, primary: color } })),
-			setAccentColor: (color) => set((state) => ({ accentColor: color, colors: { ...state.colors, accent: color } })),
-			setCompanyLogoFill: (fill) => set({ companyLogoFill: fill }),
-			setCompanyLogoSpaceIndex: (index) => set({ companyLogoSpaceIndex: index }),
-			setEventLogoWidth: (width) => set({ eventLogoWidth: width }),
-			setEventLogoSpaceIndex: (index) => set({ eventLogoSpaceIndex: index }),
-			setSubtitleWidth: (width) => set({ subtitleWidth: width }),
-			setSubtitleColor: (color) => set({ subtitleColor: color }),
-			setSubtitleSizeIndex: (index) => set({ subtitleSizeIndex: index }),
-			setSubtitleSpaceIndex: (index) => set({ subtitleSpaceIndex: index }),
-			setScheduleInfoAlignment: (alignment) => set({ scheduleInfoAlignment: alignment }),
-			setScheduleInfoWidth: (width) => set({ scheduleInfoWidth: width }),
-			setScheduleInfoColor: (color) => set({ scheduleInfoColor: color }),
-			setScheduleInfoPipeColor: (color) => set({ scheduleInfoPipeColor: color }),
-			setScheduleInfoSizeIndex: (index) => set({ scheduleInfoSizeIndex: index }),
-			setScheduleInfoSpaceIndex: (index) => set({ scheduleInfoSpaceIndex: index }),
-			setScheduleInfoDateSpaceIndex: (index) => set({ scheduleInfoDateSpaceIndex: index }),
-			setScheduleInfoPlaceSpaceIndex: (index) => set({ scheduleInfoPlaceSpaceIndex: index }),
-			setThemeWidth: (width) => set({ themeWidth: width }),
-			setThemeBadgeColor: (color) => set({ themeBadgeColor: color }),
-			setThemeBadgeBackgroundColor: (color) => set({ themeBadgeBackgroundColor: color }),
-			setThemeBadgeSizeIndex: (index) => set({ themeBadgeSizeIndex: index }),
-			setThemeBadgeSpaceIndex: (index) => set({ themeBadgeSpaceIndex: index }),
-			setThemeTitleColor: (color) => set({ themeTitleColor: color }),
-			setThemeTitleSizeIndex: (index) => set({ themeTitleSizeIndex: index }),
-		}),
-		{
-			name: "reality-development-2025", // unique name in localStorage
-			partialize: (state) => ({
-				primaryColor: state.primaryColor,
-				accentColor: state.accentColor,
-				companyLogoFill: state.companyLogoFill,
-				companyLogoSpaceIndex: state.companyLogoSpaceIndex,
-				eventLogoWidth: state.eventLogoWidth,
-				eventLogoSpaceIndex: state.eventLogoSpaceIndex,
-				subtitleWidth: state.subtitleWidth,
-				subtitleColor: state.subtitleColor,
-				subtitleSizeIndex: state.subtitleSizeIndex,
-				subtitleSpaceIndex: state.subtitleSpaceIndex,
-				scheduleInfoAlignment: state.scheduleInfoAlignment,
-				scheduleInfoWidth: state.scheduleInfoWidth,
-				scheduleInfoColor: state.scheduleInfoColor,
-				scheduleInfoPipeColor: state.scheduleInfoPipeColor,
-				scheduleInfoSizeIndex: state.scheduleInfoSizeIndex,
-				scheduleInfoSpaceIndex: state.scheduleInfoSpaceIndex,
-				scheduleInfoDateSpaceIndex: state.scheduleInfoDateSpaceIndex,
-				scheduleInfoPlaceSpaceIndex: state.scheduleInfoPlaceSpaceIndex,
-				themeWidth: state.themeWidth,
-				themeBadgeColor: state.themeBadgeColor,
-				themeBadgeBackgroundColor: state.themeBadgeBackgroundColor,
-				themeBadgeSizeIndex: state.themeBadgeSizeIndex,
-				themeBadgeSpaceIndex: state.themeBadgeSpaceIndex,
-				themeTitleColor: state.themeTitleColor,
-				themeTitleSizeIndex: state.themeTitleSizeIndex,
-			}),
-			onRehydrateStorage: () => {
-				return (actualState, error) => {
-					if (error) {
-						console.error("Error rehydrating:", error);
-					}
-
-					if (actualState) {
-						let updatedColors = { ...colors };
-
-						if (actualState.primaryColor) {
-							updatedColors.primary = actualState.primaryColor;
-						}
-						if (actualState.accentColor) {
-							updatedColors.accent = actualState.accentColor;
-						}
-
-						actualState.colors = updatedColors;
-					}
-				};
-			},
-		}
-	)
-);*/

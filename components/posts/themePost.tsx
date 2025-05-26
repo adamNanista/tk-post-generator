@@ -24,6 +24,11 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import DownloadIcon from "@mui/icons-material/Download";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+type ParsedTheme = {
+	title: string;
+	description: string;
+};
+
 export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 	const postRefs = useRef<Record<string, HTMLDivElement | null>>({});
 	const useUIStore = useRef(getUIStore("theme-post", slug)).current;
@@ -42,7 +47,7 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 		}
 	};
 
-	const parsedThemes = parseThemes(data.event.program);
+	const parsedThemes: ParsedTheme[] = data.event.program[0].items.map(parseThemes).filter(Boolean);
 
 	return (
 		<div className="flex min-h-screen">
@@ -97,7 +102,7 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 				</div>
 			</div>
 			<div className="flex flex-col items-center grow max-h-screen overflow-auto p-12 space-y-12">
-				{parsedThemes.map(({ title, description }, idx) => (
+				{parsedThemes.map(({ title, description }: ParsedTheme, idx: number) => (
 					<div key={idx}>
 						<div className="space-y-6">
 							<div className="w-[540px] h-[675px] overflow-hidden">
@@ -109,7 +114,7 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 										className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]"
 										style={{ backgroundImage: `url(/${slug}-theme-bg.png)` }}
 									>
-										<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
+										<div className="grow shrink-0 flex flex-col p-[96px]">
 											<CompanyLogo useUIStore={useUIStore} />
 											<EventLogo useUIStore={useUIStore} />
 											<Theme title={title} description={description} useUIStore={useUIStore} />

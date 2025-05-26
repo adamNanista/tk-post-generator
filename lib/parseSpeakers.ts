@@ -1,66 +1,60 @@
-type ProgramSection = {
-	name: string;
-	items: ProgramItem[];
-};
-
-type ProgramItem = {
-	name: string;
-	tags?: string[];
-	speakers?: Record<string, { person: Speaker }>;
-};
-
 type Speaker = {
 	fullname: string;
-	jobs?: {
-		job: string;
-	}[];
+	job: string;
+	poster: string;
 };
 
-type ParsedProgramItem = {
+type ParsedSpeakers = {
 	title: string;
 	description: string;
-	speakers: {
-		fullname: string;
-		job: string;
-	}[];
+	speakers: Speaker[];
 };
 
-export function parseSpeakers(program: ProgramSection[]): ParsedProgramItem[] {
-	const parsed: ParsedProgramItem[] = [];
+function stripHtmlTags(html: string): string {
+	return html.replace(/<[^>]+>/g, "");
+}
 
-	program.forEach((section) => {
-		section.items?.forEach((item) => {
-			const tags = item.tags || [];
-
-			if (tags.includes("sive")) return;
-
-			let title = "";
-			let description = item.name;
-
-			if (tags.includes("diskusia")) {
-				const [k, ...rest] = item.name.split(":");
-				title = k.trim();
-				description = rest.join(":").trim();
-
-				const speakers: ParsedProgramItem["speakers"] = [];
-
-				if (item.speakers && typeof item.speakers === "object") {
-					for (const speakerId in item.speakers) {
-						const person = item.speakers[speakerId]?.person;
-
-						if (person && person.fullname) {
-							speakers.push({
-								fullname: person.fullname,
-								job: person.jobs?.[0]?.job || "",
-							});
-						}
-					}
-				}
-
-				parsed.push({ title, description, speakers });
-			}
-		});
+function getSpeakers(speakersData: any): Speaker[] {
+	if (!speakersData || typeof speakersData !== "object") return [];
+	return Object.values(speakersData).map((entry: any) => {
+		const person = entry.person;
+		return {
+			fullname: person.fullname,
+			job: person.jobs?.[0]?.job || "",
+			poster: entry.poster?.paths?.xl || "",
+		};
 	});
+}
 
-	return parsed;
+export function parseSpeakers(item: any): ParsedSpeakers | null {
+	const tags = item.tags || [];
+
+	if (tags.includes("sive")) return null;
+
+	const speakers = getSpeakers(item.speakers);
+
+	if ((tags.includes("group_start") || tags.includes("in_group")) && !tags.includes("diskusia")) {
+		const rawDesc = stripHtmlTags(item.description || "");
+		const [title, ...rest] = rawDesc.split(/:(.+)/);
+		return {
+			title: title.trim(),
+			description: (rest[0] || "").trim(),
+			speakers,
+		};
+	}
+
+	if (tags.length === 0) {
+		return {
+			title: "",
+			description: item.name,
+			speakers,
+		};
+	}
+
+	const [title, ...rest] = item.name.split(/:(.+)/);
+	return {
+		title: title.trim(),
+		description: (rest[0] || "").trim(),
+		speakers,
+	};
 }

@@ -24,9 +24,21 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import DownloadIcon from "@mui/icons-material/Download";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+type Speaker = {
+	fullname: string;
+	job: string;
+	poster: string;
+};
+
+type ParsedSpeakers = {
+	title: string;
+	description: string;
+	speakers: Speaker[];
+};
+
 export default function SpeakersPost({ data, slug }: { data: any; slug: string }) {
 	const postRefs = useRef<Record<string, HTMLDivElement | null>>({});
-	const useUIStore = useRef(getUIStore("theme-post", slug)).current;
+	const useUIStore = useRef(getUIStore("speakers-post", slug)).current;
 
 	const handleDownload = async (key: string) => {
 		const postRef = postRefs.current[key];
@@ -42,7 +54,7 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 		}
 	};
 
-	const parsedThemes = parseSpeakers(data.event.program);
+	const parsedSpeakers: ParsedSpeakers[] = data.event.program[0].items.map(parseSpeakers).filter(Boolean);
 
 	return (
 		<div className="flex min-h-screen">
@@ -85,6 +97,7 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 						<AccordionDetails>
 							<div className="space-y-6">
 								<WidthControl label="Šírka" name="themeWidth" valueGetter={(state) => state.themeWidth} valueSetter={(state) => state.setThemeWidth} useUIStore={useUIStore} />
+								<SpaceControl label="Odsadenie" name="themeSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.themeSpaceIndex} indexSetter={(state) => state.setThemeSpaceIndex} useUIStore={useUIStore} />
 								<ColorControl label="Farba textu odznaku" name="themeBadgeColor" valueGetter={(state) => state.themeBadgeColor} valueSetter={(state) => state.setThemeBadgeColor} useUIStore={useUIStore} />
 								<ColorControl label="Farba pozadia odznaku" name="themeBadgeBackgroundColor" valueGetter={(state) => state.themeBadgeBackgroundColor} valueSetter={(state) => state.setThemeBadgeBackgroundColor} useUIStore={useUIStore} />
 								<SizeControl label="Veľkosť písma odznaku" name="themeBadgeSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeBadgeSizeIndex} indexSetter={(state) => state.setThemeBadgeSizeIndex} useUIStore={useUIStore} />
@@ -97,7 +110,7 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 				</div>
 			</div>
 			<div className="flex flex-col items-center grow max-h-screen overflow-auto p-12 space-y-12">
-				{parsedThemes.map(({ title, description, speakers }, idx) => (
+				{parsedSpeakers.map(({ title, description, speakers }: ParsedSpeakers, idx: number) => (
 					<div key={idx}>
 						<div className="space-y-6">
 							<div className="w-[540px] h-[675px] overflow-hidden">
@@ -109,7 +122,7 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 										className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]"
 										style={{ backgroundImage: `url(/${slug}-speakers-bg.png)` }}
 									>
-										<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
+										<div className="grow shrink-0 flex flex-col p-[96px]">
 											<CompanyLogo useUIStore={useUIStore} />
 											<EventLogo useUIStore={useUIStore} />
 											<Speakers title={title} description={description} speakers={speakers} useUIStore={useUIStore} />
