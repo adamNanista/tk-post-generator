@@ -12,10 +12,13 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 			</ul>
 			<ul className="space-y-2">
 				<li>
-					<Link href={`/${slug}/basic-post`}>Basic post</Link>
+					<Link href={`/${slug}/basic-post`}>Základný post</Link>
 				</li>
 				<li>
-					<Link href={`/${slug}/theme-post`}>Theme post</Link>
+					<Link href={`/${slug}/theme-post`}>Posty s témami</Link>
+				</li>
+				<li>
+					<Link href={`/${slug}/speakers-post`}>Posty so spíkrami</Link>
 				</li>
 			</ul>
 		</div>

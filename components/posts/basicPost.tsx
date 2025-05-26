@@ -27,6 +27,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function BasicPost({ data, slug }: { data: any; slug: string }) {
 	const postRef = useRef<HTMLDivElement>(null);
+	const useUIStore = useRef(getUIStore("basic-post", slug)).current;
 
 	const handleDownload = async () => {
 		if (postRef.current) {
@@ -39,10 +40,6 @@ export default function BasicPost({ data, slug }: { data: any; slug: string }) {
 			link.click();
 		}
 	};
-
-	const useUIStore = useRef(getUIStore("basic-post", slug)).current;
-
-	const primaryColor = useUIStore((state) => state.primaryColor);
 
 	return (
 		<div className="flex min-h-screen">
@@ -111,7 +108,7 @@ export default function BasicPost({ data, slug }: { data: any; slug: string }) {
 			<div className="m-auto space-y-6">
 				<div className="w-[540px] h-[675px] overflow-hidden">
 					<div className="origin-top-left scale-50">
-						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]" style={{ backgroundColor: primaryColor, backgroundImage: `url(/${slug}-basic-bg.png)` }}>
+						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]" style={{ backgroundImage: `url(/${slug}-basic-bg.png)` }}>
 							<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
 								<CompanyLogo useUIStore={useUIStore} />
 								<EventLogo useUIStore={useUIStore} />
