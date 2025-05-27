@@ -25,6 +25,57 @@ export default function Speakers({ title, description, speakers, useUIStore }: S
 	const themeTitleColor = useUIStore((state) => state.themeTitleColor);
 	const themeTitleSizeIndex = useUIStore((state) => state.themeTitleSizeIndex);
 
+	const sizeClassMap = {
+		sm: {
+			columns: "grid-cols-2",
+			container: "gap-[24px]",
+			image: "w-[112px] h-[112px] text-[112px]",
+			title: "mb-[12px] text-[36px]",
+			description: "text-[20px] leading-[24px]",
+		},
+		md: {
+			columns: "grid-cols-2",
+			container: "gap-[36px]",
+			image: "w-[160px] h-[160px] text-[160px]",
+			title: "mb-[12px] text-[36px]",
+			description: "text-[20px] leading-[24px]",
+		},
+		lg: {
+			columns: "grid-cols-1",
+			container: "gap-[36px]",
+			image: "w-[160px] h-[160px] text-[160px]",
+			title: "mb-[24px] text-[48px]",
+			description: "text-[24px] leading-[32px]",
+		},
+		xl: {
+			columns: "grid-cols-1",
+			container: "gap-[72px]",
+			image: "w-[320px] h-[320px] text-[320px]",
+			title: "mb-[32px] text-[72px]",
+			description: "text-[40px] leading-[48px]",
+		},
+	};
+
+	let size: "xl" | "lg" | "md" | "sm";
+
+	switch (speakers.length) {
+		case 1:
+			size = "xl";
+			break;
+		case 2:
+			size = "lg";
+			break;
+		case 3:
+		case 4:
+			size = "md";
+			break;
+		default:
+			size = "sm";
+			break;
+	}
+
+	const classes = sizeClassMap[size];
+
 	return (
 		<div className="grow flex flex-col">
 			<div className="shrink-0" style={{ width: themeWidth + "%", marginBottom: spaces[themeSpaceIndex] + "px" }}>
@@ -37,17 +88,18 @@ export default function Speakers({ title, description, speakers, useUIStore }: S
 					{description}
 				</h2>
 			</div>
-			<div className="grow flex flex-col">
-				<ul>
+			<div className="grow flex flex-col justify-center">
+				<ul className={`grid ${classes.columns} gap-[48px] w-full`}>
 					{speakers.map((speaker, idx) => (
-						<li key={idx} className="flex items-start text-[#232323]">
-							<div className="shrink-0 relative before:block before:w-[344px] before:h-[344px] before:absolute before:-top-[12px] before:-left-[12px] before:border-4 before:border-white before:rounded-full">
-								<img src={"https://tk-stage.k8s-onpremise.newsandmedia.sk" + speaker.poster} alt={speaker.fullname} className="w-[320px] h-[320px] relative rounded-full" />
-							</div>
-
-							<div className="self-center ml-[72px]">
-								<h3 className="mb-[32px] text-[72px] font-black leading-none">{speaker.fullname}</h3>
-								<p className="text-[40px] leading-[48px]">{speaker.job}</p>
+						<li key={idx}>
+							<div className={`flex items-start ${classes.container}`}>
+								<div className={`shrink-0 ${classes.image} relative before:block before:absolute before:top-[-0.0375em] before:right-[-0.0375em] before:bottom-[-0.0375em] before:left-[-0.0375em] before:border-[0.0125em] before:border-white before:rounded-full`}>
+									<img src={"https://tk-stage.k8s-onpremise.newsandmedia.sk" + speaker.poster} alt={speaker.fullname} className="absolute w-full h-full top-0 left-0 rounded-full" />
+								</div>
+								<div className="self-center text-[#232323]">
+									<h3 className={`${classes.title} font-black leading-none`}>{speaker.fullname}</h3>
+									<p className={`${classes.description}`}>{speaker.job}</p>
+								</div>
 							</div>
 						</li>
 					))}
