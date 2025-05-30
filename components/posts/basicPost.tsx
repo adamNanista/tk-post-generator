@@ -42,6 +42,8 @@ export default function BasicPost({ data, slug }: { data: any; slug: string }) {
 		}
 	};
 
+	const primaryColor = useUIStore((state) => state.primaryColor);
+
 	return (
 		<div className="flex min-h-screen">
 			<div className="flex flex-col w-1/5 min-w-sm max-h-screen overflow-auto p-8 space-y-8 bg-neutral-50 border-r border-r-neutral-200">
@@ -110,10 +112,10 @@ export default function BasicPost({ data, slug }: { data: any; slug: string }) {
 			<div className="m-auto space-y-6">
 				<div className="w-[540px] h-[675px] overflow-hidden">
 					<div className="origin-top-left scale-50">
-						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]" style={{ backgroundImage: `url(/${slug}-basic-bg.png)` }}>
+						<div ref={postRef} className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]" style={{ backgroundColor: primaryColor, backgroundImage: `url(/${slug}-basic-bg.png)` }}>
 							<div className="grow shrink-0 flex flex-col px-[96px] pt-[96px]">
 								<CompanyLogo useUIStore={useUIStore} />
-								<EventLogo useUIStore={useUIStore} />
+								<EventLogo slug={slug} useUIStore={useUIStore} />
 								<Subtitle text={data.event.additionalName} useUIStore={useUIStore} />
 								<ScheduleInfo day={data.event.date.from.day} month={data.event.date.from.month_human} venue={data.event.address.info} city={data.event.address.city} useUIStore={useUIStore} />
 							</div>

@@ -56,6 +56,8 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 		}
 	};
 
+	const primaryColor = useUIStore((state) => state.primaryColor);
+
 	const parsedSpeakers: ParsedSpeakers[] = data.event.program[0].items.map(parseSpeakers).filter(Boolean);
 
 	return (
@@ -133,11 +135,11 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 											postRefs.current[title] = el;
 										}}
 										className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]"
-										style={{ backgroundImage: `url(/${slug}-speakers-bg.png)` }}
+										style={{ backgroundColor: primaryColor, backgroundImage: `url(/${slug}-speakers-bg.png)` }}
 									>
 										<div className="grow shrink-0 flex flex-col p-[96px]">
 											<CompanyLogo useUIStore={useUIStore} />
-											<EventLogo useUIStore={useUIStore} />
+											<EventLogo slug={slug} useUIStore={useUIStore} />
 											<Speakers title={title} subTitle={subTitle} description={description} speakers={speakers} useUIStore={useUIStore} />
 										</div>
 									</div>

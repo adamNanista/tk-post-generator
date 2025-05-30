@@ -47,6 +47,8 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 		}
 	};
 
+	const primaryColor = useUIStore((state) => state.primaryColor);
+
 	const parsedThemes: ParsedTheme[] = data.event.program[0].items.map(parseThemes).filter(Boolean);
 
 	return (
@@ -112,11 +114,11 @@ export default function ThemePost({ data, slug }: { data: any; slug: string }) {
 											postRefs.current[title] = el;
 										}}
 										className="flex flex-col w-[1080px] h-[1350px] overflow-hidden font-[Panton_Narrow]"
-										style={{ backgroundImage: `url(/${slug}-theme-bg.png)` }}
+										style={{ backgroundColor: primaryColor, backgroundImage: `url(/${slug}-theme-bg.png)` }}
 									>
 										<div className="grow shrink-0 flex flex-col p-[96px]">
 											<CompanyLogo useUIStore={useUIStore} />
-											<EventLogo useUIStore={useUIStore} />
+											<EventLogo slug={slug} useUIStore={useUIStore} />
 											<Theme title={title} description={description} useUIStore={useUIStore} />
 										</div>
 									</div>
