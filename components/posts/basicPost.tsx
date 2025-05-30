@@ -11,6 +11,7 @@ import SpaceControl from "@/components/controls/spaceControl";
 import ColorControl from "@/components/controls/colorControl";
 import SizeControl from "@/components/controls/sizeControl";
 import AlignmentControl from "@/components/controls/alignmentControl";
+import HighlightedWordsControl from "@/components/controls/highlightedWordsControl";
 
 import CompanyLogo from "@/components/elements/companyLogo";
 import EventLogo from "@/components/elements/eventLogo";
@@ -85,6 +86,7 @@ export default function BasicPost({ data, slug }: { data: any; slug: string }) {
 								<ColorControl label="Farba" name="subtitleColor" valueGetter={(state) => state.subtitleColor} valueSetter={(state) => state.setSubtitleColor} useUIStore={useUIStore} />
 								<SizeControl label="Veľkosť písma" name="subtitleSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.subtitleSizeIndex} indexSetter={(state) => state.setSubtitleSizeIndex} useUIStore={useUIStore} />
 								<SpaceControl label="Odsadenie" name="subtitleSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.subtitleSpaceIndex} indexSetter={(state) => state.setSubtitleSpaceIndex} useUIStore={useUIStore} />
+								<HighlightedWordsControl label="Zvýraznené slová" name="subtitleHighlightedWords" valueGetter={(state) => state.subtitleHighlightedWords} valueSetter={(state) => state.setSubtitleHighlightedWords} useUIStore={useUIStore} />
 							</div>
 						</AccordionDetails>
 					</Accordion>

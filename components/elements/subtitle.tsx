@@ -14,12 +14,11 @@ export default function Subtitle({ text, useUIStore }: SubtitleProps) {
 	const subtitleSizeIndex = useUIStore((state) => state.subtitleSizeIndex);
 	const subtitleWidth = useUIStore((state) => state.subtitleWidth);
 	const subtitleColor = useUIStore((state) => state.subtitleColor);
-
-	const boldWords = ["budúcnosť", "trhu"];
+	const subtitleHighlightedWords = useUIStore((state) => state.subtitleHighlightedWords);
 
 	const boldify = (str: string) => {
 		return str.split(" ").map((word, index) => {
-			if (boldWords.includes(word.toLowerCase())) {
+			if (subtitleHighlightedWords.includes(word.toLowerCase())) {
 				return (
 					<strong key={index} className="font-black">
 						{word + " "}

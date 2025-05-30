@@ -24,6 +24,7 @@ type UIState = {
 	subtitleColor: string;
 	subtitleSizeIndex: number;
 	subtitleSpaceIndex: number;
+	subtitleHighlightedWords: string[];
 	scheduleInfoAlignment: string;
 	scheduleInfoWidth: number;
 	scheduleInfoColor: string;
@@ -51,6 +52,7 @@ type UIState = {
 	setSubtitleColor: (color: string) => void;
 	setSubtitleSizeIndex: (index: number) => void;
 	setSubtitleSpaceIndex: (index: number) => void;
+	setSubtitleHighlightedWords: (words: string[]) => void;
 	setScheduleInfoAlignment: (alignment: string) => void;
 	setScheduleInfoWidth: (width: number) => void;
 	setScheduleInfoColor: (color: string) => void;
@@ -109,6 +111,7 @@ const createUIStore = (prefix: string, slug: string) => {
 				subtitleColor: persistedState?.subtitleColor || "dark",
 				subtitleSizeIndex: persistedState?.subtitleSizeIndex || 17,
 				subtitleSpaceIndex: persistedState?.subtitleSpaceIndex || 13,
+				subtitleHighlightedWords: persistedState?.subtitleHighlightedWords || [],
 				scheduleInfoAlignment: persistedState?.scheduleInfoAlignment || "top",
 				scheduleInfoWidth: persistedState?.scheduleInfoWidth || 100,
 				scheduleInfoColor: persistedState?.scheduleInfoColor || "dark",
@@ -136,6 +139,7 @@ const createUIStore = (prefix: string, slug: string) => {
 				setSubtitleColor: (color) => set({ subtitleColor: color }),
 				setSubtitleSizeIndex: (index) => set({ subtitleSizeIndex: index }),
 				setSubtitleSpaceIndex: (index) => set({ subtitleSpaceIndex: index }),
+				setSubtitleHighlightedWords: (words) => set({ subtitleHighlightedWords: words }),
 				setScheduleInfoAlignment: (alignment) => set({ scheduleInfoAlignment: alignment }),
 				setScheduleInfoWidth: (width) => set({ scheduleInfoWidth: width }),
 				setScheduleInfoColor: (color) => set({ scheduleInfoColor: color }),
@@ -166,6 +170,7 @@ const createUIStore = (prefix: string, slug: string) => {
 					subtitleColor: state.subtitleColor,
 					subtitleSizeIndex: state.subtitleSizeIndex,
 					subtitleSpaceIndex: state.subtitleSpaceIndex,
+					subtitleHighlightedWords: state.subtitleHighlightedWords,
 					scheduleInfoAlignment: state.scheduleInfoAlignment,
 					scheduleInfoWidth: state.scheduleInfoWidth,
 					scheduleInfoColor: state.scheduleInfoColor,
