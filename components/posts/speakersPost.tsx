@@ -33,6 +33,7 @@ type Speaker = {
 
 type ParsedSpeakers = {
 	title: string;
+	subTitle: string;
 	description: string;
 	speakers: Speaker[];
 };
@@ -103,6 +104,8 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 								<ColorControl label="Farba pozadia odznaku" name="themeBadgeBackgroundColor" valueGetter={(state) => state.themeBadgeBackgroundColor} valueSetter={(state) => state.setThemeBadgeBackgroundColor} useUIStore={useUIStore} />
 								<SizeControl label="Veľkosť písma odznaku" name="themeBadgeSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeBadgeSizeIndex} indexSetter={(state) => state.setThemeBadgeSizeIndex} useUIStore={useUIStore} />
 								<SpaceControl label="Odsadenie odznaku" name="themeBadgeSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.themeBadgeSpaceIndex} indexSetter={(state) => state.setThemeBadgeSpaceIndex} useUIStore={useUIStore} />
+								<ColorControl label="Farba textu druhého odznaku" name="themeBadgeSecondaryColor" valueGetter={(state) => state.themeBadgeSecondaryColor} valueSetter={(state) => state.setThemeBadgeSecondaryColor} useUIStore={useUIStore} />
+								<ColorControl label="Farba pozadia druhého odznaku" name="themeBadgeSecondaryBackgroundColor" valueGetter={(state) => state.themeBadgeSecondaryBackgroundColor} valueSetter={(state) => state.setThemeBadgeSecondaryBackgroundColor} useUIStore={useUIStore} />
 								<ColorControl label="Farba textu nadpisu" name="themeTitleColor" valueGetter={(state) => state.themeTitleColor} valueSetter={(state) => state.setThemeTitleColor} useUIStore={useUIStore} />
 								<SizeControl label="Veľkosť písma nadpisu" name="themeTitleSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeTitleSizeIndex} indexSetter={(state) => state.setThemeTitleSizeIndex} useUIStore={useUIStore} />
 							</div>
@@ -120,7 +123,7 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 				</div>
 			</div>
 			<div className="flex flex-col items-center grow max-h-screen overflow-auto p-12 space-y-12">
-				{parsedSpeakers.map(({ title, description, speakers }: ParsedSpeakers, idx: number) => (
+				{parsedSpeakers.map(({ title, subTitle, description, speakers }: ParsedSpeakers, idx: number) => (
 					<div key={idx}>
 						<div className="space-y-6">
 							<div className="w-[540px] h-[675px] overflow-hidden">
@@ -135,7 +138,7 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 										<div className="grow shrink-0 flex flex-col p-[96px]">
 											<CompanyLogo useUIStore={useUIStore} />
 											<EventLogo useUIStore={useUIStore} />
-											<Speakers title={title} description={description} speakers={speakers} useUIStore={useUIStore} />
+											<Speakers title={title} subTitle={subTitle} description={description} speakers={speakers} useUIStore={useUIStore} />
 										</div>
 									</div>
 								</div>

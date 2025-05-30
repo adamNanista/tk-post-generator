@@ -39,6 +39,8 @@ type UIState = {
 	themeBadgeBackgroundColor: string;
 	themeBadgeSizeIndex: number;
 	themeBadgeSpaceIndex: number;
+	themeBadgeSecondaryColor: string;
+	themeBadgeSecondaryBackgroundColor: string;
 	themeTitleColor: string;
 	themeTitleSizeIndex: number;
 	speakersAlignment: string;
@@ -69,6 +71,8 @@ type UIState = {
 	setThemeBadgeBackgroundColor: (color: string) => void;
 	setThemeBadgeSizeIndex: (index: number) => void;
 	setThemeBadgeSpaceIndex: (index: number) => void;
+	setThemeBadgeSecondaryColor: (color: string) => void;
+	setThemeBadgeSecondaryBackgroundColor: (color: string) => void;
 	setThemeTitleColor: (color: string) => void;
 	setThemeTitleSizeIndex: (index: number) => void;
 	setSpeakersAlignment: (alignment: string) => void;
@@ -130,6 +134,8 @@ const createUIStore = (prefix: string, slug: string) => {
 				themeBadgeBackgroundColor: persistedState?.themeBadgeBackgroundColor || "dark",
 				themeBadgeSizeIndex: persistedState?.themeBadgeSizeIndex || 5,
 				themeBadgeSpaceIndex: persistedState?.themeBadgeSpaceIndex || 3,
+				themeBadgeSecondaryColor: persistedState?.themeBadgeSecondaryColor || "dark",
+				themeBadgeSecondaryBackgroundColor: persistedState?.themeBadgeSecondaryBackgroundColor || "light",
 				themeTitleColor: persistedState?.themeTitleColor || "dark",
 				themeTitleSizeIndex: persistedState?.themeTitleSizeIndex || 13,
 				speakersAlignment: persistedState?.speakersAlignment || "center",
@@ -160,6 +166,8 @@ const createUIStore = (prefix: string, slug: string) => {
 				setThemeBadgeBackgroundColor: (color) => set({ themeBadgeBackgroundColor: color }),
 				setThemeBadgeSizeIndex: (index) => set({ themeBadgeSizeIndex: index }),
 				setThemeBadgeSpaceIndex: (index) => set({ themeBadgeSpaceIndex: index }),
+				setThemeBadgeSecondaryColor: (color) => set({ themeBadgeSecondaryColor: color }),
+				setThemeBadgeSecondaryBackgroundColor: (color) => set({ themeBadgeSecondaryBackgroundColor: color }),
 				setThemeTitleColor: (color) => set({ themeTitleColor: color }),
 				setThemeTitleSizeIndex: (index) => set({ themeTitleSizeIndex: index }),
 				setSpeakersAlignment: (alignment) => set({ speakersAlignment: alignment }),
@@ -193,6 +201,8 @@ const createUIStore = (prefix: string, slug: string) => {
 					themeBadgeBackgroundColor: state.themeBadgeBackgroundColor,
 					themeBadgeSizeIndex: state.themeBadgeSizeIndex,
 					themeBadgeSpaceIndex: state.themeBadgeSpaceIndex,
+					themeBadgeSecondaryColor: state.themeBadgeSecondaryColor,
+					themeBadgeSecondaryBackgroundColor: state.themeBadgeSecondaryBackgroundColor,
 					themeTitleColor: state.themeTitleColor,
 					themeTitleSizeIndex: state.themeTitleSizeIndex,
 					speakersAlignment: state.speakersAlignment,

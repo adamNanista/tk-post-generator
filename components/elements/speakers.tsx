@@ -2,6 +2,7 @@
 
 type SpeakersProps = {
 	title: string;
+	subTitle: string;
 	description: string;
 	speakers: {
 		fullname: string;
@@ -11,7 +12,7 @@ type SpeakersProps = {
 	useUIStore: ReturnType<typeof import("@/stores/useUIStore").getUIStore>;
 };
 
-export default function Speakers({ title, description, speakers, useUIStore }: SpeakersProps) {
+export default function Speakers({ title, subTitle, description, speakers, useUIStore }: SpeakersProps) {
 	const colors = useUIStore((state) => state.colors);
 	const sizes = useUIStore((state) => state.sizes);
 	const spaces = useUIStore((state) => state.spaces);
@@ -23,6 +24,8 @@ export default function Speakers({ title, description, speakers, useUIStore }: S
 	const themeBadgeBackgroundColor = useUIStore((state) => state.themeBadgeBackgroundColor);
 	const themeBadgeSizeIndex = useUIStore((state) => state.themeBadgeSizeIndex);
 	const themeBadgeSpaceIndex = useUIStore((state) => state.themeBadgeSpaceIndex);
+	const themeBadgeSecondaryColor = useUIStore((state) => state.themeBadgeSecondaryColor);
+	const themeBadgeSecondaryBackgroundColor = useUIStore((state) => state.themeBadgeSecondaryBackgroundColor);
 	const themeTitleColor = useUIStore((state) => state.themeTitleColor);
 	const themeTitleSizeIndex = useUIStore((state) => state.themeTitleSizeIndex);
 	const speakersAlignment = useUIStore((state) => state.speakersAlignment);
@@ -82,11 +85,18 @@ export default function Speakers({ title, description, speakers, useUIStore }: S
 	return (
 		<div className="grow flex flex-col">
 			<div className="shrink-0" style={{ width: themeWidth + "%", marginBottom: spaces[themeSpaceIndex] + "px" }}>
-				{title && (
-					<span className="inline-flex px-[0.5em] py-[0.375em] font-bold leading-none uppercase" style={{ marginBottom: spaces[themeBadgeSpaceIndex] + "px", color: colors[themeBadgeColor], fontSize: sizes[themeBadgeSizeIndex] + "px", backgroundColor: colors[themeBadgeBackgroundColor] }}>
-						{title}
-					</span>
-				)}
+				<div className="flex" style={{ marginBottom: spaces[themeBadgeSpaceIndex] + "px" }}>
+					{title && (
+						<span className="shrink-0 inline-flex px-[0.5em] py-[0.375em] font-bold leading-none uppercase" style={{ color: colors[themeBadgeColor], fontSize: sizes[themeBadgeSizeIndex] + "px", backgroundColor: colors[themeBadgeBackgroundColor] }}>
+							{title}
+						</span>
+					)}
+					{subTitle && (
+						<span className="shrink-0 inline-flex px-[0.5em] py-[0.375em] font-bold leading-none uppercase" style={{ color: colors[themeBadgeSecondaryColor], fontSize: sizes[themeBadgeSizeIndex] + "px", backgroundColor: colors[themeBadgeSecondaryBackgroundColor] }}>
+							{subTitle}
+						</span>
+					)}
+				</div>
 				<h2 className="font-[Guardian_Egyp] text-[64px] font-bold leading-none text-pretty" style={{ color: colors[themeTitleColor], fontSize: sizes[themeTitleSizeIndex] + "px" }}>
 					{description}
 				</h2>

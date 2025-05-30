@@ -6,6 +6,7 @@ type Speaker = {
 
 type ParsedSpeakers = {
 	title: string;
+	subTitle: string;
 	description: string;
 	speakers: Speaker[];
 };
@@ -35,10 +36,12 @@ export function parseSpeakers(item: any): ParsedSpeakers | null {
 
 	if ((tags.includes("group_start") || tags.includes("in_group")) && !tags.includes("diskusia")) {
 		const rawDesc = stripHtmlTags(item.description || "");
-		const [title, ...rest] = rawDesc.split(/:(.+)/);
+		const [title, ...rest] = item.name.split(/:(.+)/);
+		const [subTitle, ...subRest] = rawDesc.split(/:(.+)/);
 		return {
 			title: title.trim(),
-			description: (rest[0] || "").trim(),
+			subTitle: subTitle.trim(),
+			description: (subRest[0] || "").trim(),
 			speakers,
 		};
 	}
@@ -46,6 +49,7 @@ export function parseSpeakers(item: any): ParsedSpeakers | null {
 	if (tags.length === 0) {
 		return {
 			title: "",
+			subTitle: "",
 			description: item.name,
 			speakers,
 		};
@@ -54,6 +58,7 @@ export function parseSpeakers(item: any): ParsedSpeakers | null {
 	const [title, ...rest] = item.name.split(/:(.+)/);
 	return {
 		title: title.trim(),
+		subTitle: "",
 		description: (rest[0] || "").trim(),
 		speakers,
 	};
