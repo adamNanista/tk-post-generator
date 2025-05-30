@@ -15,6 +15,7 @@ export default function Speakers({ title, description, speakers, useUIStore }: S
 	const colors = useUIStore((state) => state.colors);
 	const sizes = useUIStore((state) => state.sizes);
 	const spaces = useUIStore((state) => state.spaces);
+	const alignments = useUIStore((state) => state.alignments);
 
 	const themeWidth = useUIStore((state) => state.themeWidth);
 	const themeSpaceIndex = useUIStore((state) => state.themeSpaceIndex);
@@ -24,6 +25,8 @@ export default function Speakers({ title, description, speakers, useUIStore }: S
 	const themeBadgeSpaceIndex = useUIStore((state) => state.themeBadgeSpaceIndex);
 	const themeTitleColor = useUIStore((state) => state.themeTitleColor);
 	const themeTitleSizeIndex = useUIStore((state) => state.themeTitleSizeIndex);
+	const speakersAlignment = useUIStore((state) => state.speakersAlignment);
+	const speakersSpaceIndex = useUIStore((state) => state.speakersSpaceIndex);
 
 	const sizeClassMap = {
 		sm: {
@@ -88,8 +91,8 @@ export default function Speakers({ title, description, speakers, useUIStore }: S
 					{description}
 				</h2>
 			</div>
-			<div className="grow flex flex-col justify-center">
-				<ul className={`grid ${classes.columns} gap-[48px] w-full`}>
+			<div className="grow flex flex-col" style={{ justifyContent: alignments[speakersAlignment] }}>
+				<ul className={`grid ${classes.columns} w-full gap-x-[48px]`} style={{ rowGap: spaces[speakersSpaceIndex] + "px" }}>
 					{speakers.map((speaker, idx) => (
 						<li key={idx}>
 							<div className={`flex items-start ${classes.container}`}>

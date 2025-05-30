@@ -41,6 +41,8 @@ type UIState = {
 	themeBadgeSpaceIndex: number;
 	themeTitleColor: string;
 	themeTitleSizeIndex: number;
+	speakersAlignment: string;
+	speakersSpaceIndex: number;
 
 	setPrimaryColor: (color: string) => void;
 	setAccentColor: (color: string) => void;
@@ -69,6 +71,8 @@ type UIState = {
 	setThemeBadgeSpaceIndex: (index: number) => void;
 	setThemeTitleColor: (color: string) => void;
 	setThemeTitleSizeIndex: (index: number) => void;
+	setSpeakersAlignment: (alignment: string) => void;
+	setSpeakersSpaceIndex: (index: number) => void;
 };
 
 const createUIStore = (prefix: string, slug: string) => {
@@ -128,6 +132,8 @@ const createUIStore = (prefix: string, slug: string) => {
 				themeBadgeSpaceIndex: persistedState?.themeBadgeSpaceIndex || 3,
 				themeTitleColor: persistedState?.themeTitleColor || "dark",
 				themeTitleSizeIndex: persistedState?.themeTitleSizeIndex || 13,
+				speakersAlignment: persistedState?.speakersAlignment || "center",
+				speakersSpaceIndex: persistedState?.speakersSpaceIndex || 9,
 
 				setPrimaryColor: (color) => set((state) => ({ primaryColor: color, colors: { ...state.colors, primary: color } })),
 				setAccentColor: (color) => set((state) => ({ accentColor: color, colors: { ...state.colors, accent: color } })),
@@ -156,6 +162,8 @@ const createUIStore = (prefix: string, slug: string) => {
 				setThemeBadgeSpaceIndex: (index) => set({ themeBadgeSpaceIndex: index }),
 				setThemeTitleColor: (color) => set({ themeTitleColor: color }),
 				setThemeTitleSizeIndex: (index) => set({ themeTitleSizeIndex: index }),
+				setSpeakersAlignment: (alignment) => set({ speakersAlignment: alignment }),
+				setSpeakersSpaceIndex: (index) => set({ speakersSpaceIndex: index }),
 			}),
 			{
 				name: storageKey, // unique name in localStorage
@@ -187,6 +195,8 @@ const createUIStore = (prefix: string, slug: string) => {
 					themeBadgeSpaceIndex: state.themeBadgeSpaceIndex,
 					themeTitleColor: state.themeTitleColor,
 					themeTitleSizeIndex: state.themeTitleSizeIndex,
+					speakersAlignment: state.speakersAlignment,
+					speakersSpaceIndex: state.speakersSpaceIndex,
 				}),
 				onRehydrateStorage: () => {
 					return (actualState, error) => {

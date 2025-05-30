@@ -20,6 +20,9 @@ export default function AlignmentControl({ label, name, valueGetter, valueSetter
 					<input type="radio" name={name} value="top" checked={value === "top"} onChange={() => setValue("top")} /> Hore
 				</label>
 				<label>
+					<input type="radio" name={name} value="center" checked={value === "center"} onChange={() => setValue("center")} /> Na stred
+				</label>
+				<label>
 					<input type="radio" name={name} value="bottom" checked={value === "bottom"} onChange={() => setValue("bottom")} /> Dole
 				</label>
 			</div>

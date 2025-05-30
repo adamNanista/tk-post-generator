@@ -12,6 +12,7 @@ import WidthControl from "@/components/controls/widthControl";
 import SpaceControl from "@/components/controls/spaceControl";
 import ColorControl from "@/components/controls/colorControl";
 import SizeControl from "@/components/controls/sizeControl";
+import AlignmentControl from "@/components/controls/alignmentControl";
 
 import CompanyLogo from "@/components/elements/companyLogo";
 import EventLogo from "@/components/elements/eventLogo";
@@ -104,6 +105,15 @@ export default function SpeakersPost({ data, slug }: { data: any; slug: string }
 								<SpaceControl label="Odsadenie odznaku" name="themeBadgeSpace" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.themeBadgeSpaceIndex} indexSetter={(state) => state.setThemeBadgeSpaceIndex} useUIStore={useUIStore} />
 								<ColorControl label="Farba textu nadpisu" name="themeTitleColor" valueGetter={(state) => state.themeTitleColor} valueSetter={(state) => state.setThemeTitleColor} useUIStore={useUIStore} />
 								<SizeControl label="Veľkosť písma nadpisu" name="themeTitleSize" sizesGetter={(state) => state.sizes} indexGetter={(state) => state.themeTitleSizeIndex} indexSetter={(state) => state.setThemeTitleSizeIndex} useUIStore={useUIStore} />
+							</div>
+						</AccordionDetails>
+					</Accordion>
+					<Accordion disableGutters>
+						<AccordionSummary expandIcon={<ExpandMoreIcon />}>Spíkri</AccordionSummary>
+						<AccordionDetails>
+							<div className="space-y-6">
+								<AlignmentControl label="Zarovnanie spíkrov" name="speakersAlignment" valueGetter={(state) => state.speakersAlignment} valueSetter={(state) => state.setSpeakersAlignment} useUIStore={useUIStore} />
+								<SpaceControl label="Rozostupy spíkrov" name="speakersSpaceIndex" spacesGetter={(state) => state.spaces} indexGetter={(state) => state.speakersSpaceIndex} indexSetter={(state) => state.setSpeakersSpaceIndex} useUIStore={useUIStore} />
 							</div>
 						</AccordionDetails>
 					</Accordion>
